@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IMPORTIA · Deutschland</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F141C;
+    --card:#1A202B;
+    --text:#F2EEE4;
+    --muted:#A39E8F;
+    --muted-strong:#C4BFB1;
+    --accent-navy:#2A4A74;
+    --accent-red:#8C2A28;
+    --gold:#D0A858;
+    --gold-dim:#A5864A;
+    --border:#242D3B;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.55;
+    font-size:16px;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  /* subtle grain, inline SVG turbulence, fixed overlay */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:100;
+    opacity:0.04;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.8 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  ::selection{background:var(--accent-navy);color:var(--text)}
+
+  /* ============ CURSOR TORCH ============ */
+  /* The page sits in a dim room. A soft warm light follows the cursor
+     so the user illuminates their own reading path. Uses a mask on a
+     dark overlay so content around the cursor stays at full contrast,
+     and content far from the cursor is dimmed toward the room. */
+  .torch-dim{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:2;
+    background:rgba(6,9,14,0.18);
+    --tx: 50%;
+    --ty: 50%;
+    --tr: 260px;
+    -webkit-mask-image:
+      radial-gradient(
+        circle var(--tr) at var(--tx) var(--ty),
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0.25) 55%,
+        rgba(0,0,0,0.7) 85%,
+        rgba(0,0,0,1) 100%
+      );
+            mask-image:
+      radial-gradient(
+        circle var(--tr) at var(--tx) var(--ty),
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0.25) 55%,
+        rgba(0,0,0,0.7) 85%,
+        rgba(0,0,0,1) 100%
+      );
+    opacity:0;
+    transition:opacity 1.2s ease;
+    will-change: mask-image;
+  }
+  .torch-dim.on{ opacity:1; }
+
+  /* warm glow layer sitting on top of the dim mask: a small additive pool of light */
+  .torch-glow{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:3;
+    mix-blend-mode:screen;
+    --gx: 50%;
+    --gy: 50%;
+    --gr: 200px;
+    background:
+      radial-gradient(
+        circle var(--gr) at var(--gx) var(--gy),
+        rgba(255, 236, 196, 0.22) 0%,
+        rgba(232, 200, 130, 0.12) 30%,
+        rgba(184, 146, 74, 0.04) 60%,
+        rgba(0,0,0,0) 80%
+      );
+    opacity:0;
+    transition:opacity 1.2s ease;
+    will-change: background;
+  }
+  .torch-glow.on{ opacity:1; }
+
+  /* On touch/no-hover devices, hide the torch entirely. */
+  @media (hover: none), (prefers-reduced-motion: reduce){
+    .torch-dim, .torch-glow{ display:none; }
+  }
+
+  /* shared layout */
+  .frame{
+    max-width:1280px;
+    margin:0 auto;
+    padding:0 48px;
+  }
+  @media (max-width:720px){ .frame{ padding:0 24px; } }
+
+  /* tiny uppercase labels */
+  .eyebrow{
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .eyebrow .sep{
+    display:inline-block;
+    width:18px;
+    height:1px;
+    background:var(--gold-dim);
+    vertical-align:middle;
+    margin:0 10px 3px;
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    padding:40px 0 64px;
+  }
+
+  .hero-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:24px;
+  }
+  .hero-top .meta-right{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:0.05em;
+    text-align:right;
+    line-height:1.7;
+  }
+  .hero-top .meta-right .dot{
+    display:inline-block; width:5px; height:5px;
+    background:var(--gold); border-radius:50%;
+    margin-right:8px; vertical-align:middle;
+  }
+
+  .hero-center{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 0 40px;
+  }
+
+  .logo-plate{
+    position:relative;
+    padding:34px 44px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+  }
+  /* corner marks (old-document / letterhead cue) */
+  .logo-plate::before,
+  .logo-plate::after{
+    content:"";
+    position:absolute;
+    width:22px; height:22px;
+    border:1px solid var(--gold-dim);
+    opacity:0.55;
+  }
+  .logo-plate::before{ top:0; left:0; border-right:none; border-bottom:none; }
+  .logo-plate::after{  bottom:0; right:0; border-left:none; border-top:none; }
+  .logo-plate .c2,
+  .logo-plate .c3{
+    content:"";
+    position:absolute;
+    width:22px; height:22px;
+    border:1px solid var(--gold-dim);
+    opacity:0.55;
+  }
+  .logo-plate .c2{ top:0; right:0; border-left:none; border-bottom:none;}
+  .logo-plate .c3{ bottom:0; left:0; border-right:none; border-top:none;}
+
+  .logo-plate .logo-wrap{
+    position:relative;
+    width:240px;
+    max-width:54vw;
+    display:block;
+    perspective: 900px;
+    transform-style: preserve-3d;
+  }
+  .logo-plate .logo-wrap::before{
+    /* soft warm halo behind logo, almost reading as a light source */
+    content:"";
+    position:absolute;
+    inset:-55% -55%;
+    background:
+      radial-gradient(closest-side, rgba(255,220,150,0.55), rgba(232,190,110,0.20) 35%, rgba(184,146,74,0.06) 60%, rgba(184,146,74,0) 78%);
+    filter:blur(18px);
+    z-index:0;
+    animation:haloPulse 6.5s ease-in-out infinite;
+    pointer-events:none;
+    mix-blend-mode:screen;
+  }
+  .logo-plate .logo-wrap::after{
+    /* second hotter core behind logo center */
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(closest-side, rgba(255,240,200,0.38), rgba(255,220,160,0.12) 50%, rgba(0,0,0,0) 75%);
+    filter:blur(10px);
+    z-index:0;
+    animation:haloPulse 5s ease-in-out infinite;
+    animation-delay:-1.2s;
+    pointer-events:none;
+    mix-blend-mode:screen;
+  }
+  .logo-plate img{
+    position:relative;
+    z-index:1;
+    width:100%;
+    height:auto;
+    display:block;
+    animation:
+      logoFloat 7s ease-in-out infinite,
+      logoIn 1.4s cubic-bezier(.2,.7,.2,1) both,
+      logoHue 11s ease-in-out infinite;
+    transform-origin:center;
+    will-change:transform, opacity, filter;
+    filter:
+      drop-shadow(0 0 18px rgba(255,220,150,0.35))
+      drop-shadow(0 0 42px rgba(232,190,110,0.25))
+      drop-shadow(0 14px 28px rgba(0,0,0,0.55))
+      drop-shadow(0 4px 10px rgba(0,0,0,0.45))
+      drop-shadow(0 1px 0 rgba(255,230,180,0.25))
+      brightness(1.28)
+      contrast(1.08)
+      saturate(1.10);
+  }
+
+  @keyframes logoHue{
+    0%,100% { filter:
+      drop-shadow(0 0 18px rgba(255,220,150,0.35))
+      drop-shadow(0 0 42px rgba(232,190,110,0.25))
+      drop-shadow(0 14px 28px rgba(0,0,0,0.55))
+      drop-shadow(0 4px 10px rgba(0,0,0,0.45))
+      drop-shadow(0 1px 0 rgba(255,230,180,0.25))
+      brightness(1.28) contrast(1.08) saturate(1.10) hue-rotate(0deg); }
+    50%     { filter:
+      drop-shadow(0 0 28px rgba(255,230,170,0.55))
+      drop-shadow(0 0 64px rgba(255,200,120,0.35))
+      drop-shadow(0 16px 34px rgba(0,0,0,0.60))
+      drop-shadow(0 4px 12px rgba(0,0,0,0.50))
+      drop-shadow(0 1px 0 rgba(255,230,180,0.35))
+      brightness(1.40) contrast(1.10) saturate(1.22) hue-rotate(-10deg); }
+  }
+
+  @keyframes logoIn{
+    0%   { opacity:0; transform:translateY(10px) scale(0.985); filter:blur(2px); }
+    100% { opacity:1; transform:translateY(0)    scale(1);     filter:blur(0); }
+  }
+  @keyframes logoFloat{
+    0%,100% { transform:translateY(0)    scale(1) rotateX(0deg)    rotateY(0deg); }
+    25%     { transform:translateY(-3px) scale(1.006) rotateX(1.2deg) rotateY(2.2deg); }
+    50%     { transform:translateY(-4px) scale(1.008) rotateX(0deg)   rotateY(0deg); }
+    75%     { transform:translateY(-3px) scale(1.006) rotateX(-1.2deg) rotateY(-2.2deg); }
+  }
+  @keyframes haloPulse{
+    0%,100% { opacity:0.75; transform:scale(0.98); }
+    50%     { opacity:1.1;  transform:scale(1.08); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .logo-plate img,
+    .logo-plate .logo-wrap::before{ animation:none !important; }
+  }
+
+  .hero h1{
+    font-family:'Oswald','Arial Narrow',sans-serif;
+    font-weight:500;
+    font-size:clamp(42px, 6.2vw, 78px);
+    line-height:1.02;
+    letter-spacing:0.005em;
+    text-transform:uppercase;
+    margin:56px 0 18px;
+    color:var(--text);
+    text-wrap:balance;
+  }
+  .hero h1 .em{
+    font-weight:300;
+    color:var(--muted-strong);
+    letter-spacing:0.02em;
+  }
+
+  .hero .tagline{
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    letter-spacing:0.02em;
+    margin:0;
+  }
+  .hero .tagline .pipe{
+    display:inline-block;
+    margin:0 10px;
+    color:var(--gold-dim);
+  }
+
+  /* horizon rule under hero */
+  .horizon{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:56px;
+    color:var(--muted);
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:0.1em;
+  }
+  .horizon .rule{
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold-dim) 40%, var(--gold-dim) 60%, transparent);
+    opacity:0.6;
+  }
+
+  /* scroll hint */
+  .scroll-hint{
+    position:absolute;
+    bottom:28px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    color:var(--gold);
+  }
+  .scroll-hint .line{
+    width:1px; height:44px;
+    background:linear-gradient(var(--gold-dim), transparent);
+  }
+  .scroll-hint svg{ display:block; opacity:0.8; }
+
+  /* ============ TÄTIGKEITSFELDER ============ */
+  .fields{
+    padding:140px 0 120px;
+    border-top:1px solid var(--border);
+    position:relative;
+  }
+  .fields .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:24px;
+    padding-bottom:48px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:72px;
+  }
+  .fields .section-head h2{
+    font-family:'Oswald','Arial Narrow',sans-serif;
+    font-weight:500;
+    font-size:clamp(32px, 3.8vw, 50px);
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    margin:12px 0 0;
+    line-height:1.05;
+    color:var(--text);
+    text-wrap:balance;
+    max-width:720px;
+  }
+  .fields .section-head .head-right{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:0.05em;
+    text-align:right;
+    white-space:nowrap;
+  }
+
+  .cols{
+    display:grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap:0 56px;
+    align-items:start;
+  }
+  .col{
+    padding:8px 0 12px;
+  }
+  .divider{
+    width:1px;
+    align-self:stretch;
+    background:linear-gradient(180deg, transparent, var(--gold-dim) 15%, var(--gold-dim) 85%, transparent);
+    opacity:0.45;
+  }
+
+  .col .num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:0.15em;
+    margin-bottom:22px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .col .num .tick{
+    width:14px; height:1px; background:var(--gold-dim);
+  }
+
+  .col h3{
+    font-family:'Oswald','Arial Narrow',sans-serif;
+    font-weight:500;
+    font-size:34px;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    line-height:1.05;
+    margin:0 0 10px;
+    color:var(--text);
+  }
+  .col h3 .it{
+    color:var(--muted-strong);
+    font-weight:400;
+  }
+  .col .kicker{
+    font-family:'Inter',sans-serif;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    color:var(--muted);
+    margin:0 0 22px;
+  }
+  .col p{
+    font-size:14.5px;
+    line-height:1.7;
+    color:var(--muted-strong);
+    margin:0 0 14px;
+    max-width:34ch;
+  }
+  .col .keys{
+    margin-top:28px;
+    padding-top:18px;
+    border-top:1px solid var(--border);
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:0.04em;
+    line-height:1.9;
+  }
+  .col .keys span{ color:var(--text); }
+
+  /* field icon */
+  .col .ico{
+    width:28px; height:28px;
+    color:var(--gold);
+    margin-bottom:26px;
+    opacity:0.85;
+  }
+
+  @media (max-width:900px){
+    .cols{
+      grid-template-columns: 1fr;
+      gap:0;
+    }
+    .divider{
+      width:100%;
+      height:1px;
+      background:linear-gradient(90deg, transparent, var(--gold-dim) 20%, var(--gold-dim) 80%, transparent);
+      margin:40px 0;
+    }
+    .col p{ max-width:60ch; }
+  }
+
+  /* ============ KONTAKT ============ */
+  .contact{
+    border-top:1px solid var(--border);
+    padding:120px 0 64px;
+    position:relative;
+  }
+  .contact::before{
+    /* SINGLE sparing use of accent-red: a short hairline top-left */
+    content:"";
+    position:absolute;
+    top:-1px; left:48px;
+    width:56px; height:2px;
+    background:var(--accent-red);
+  }
+  @media (max-width:720px){ .contact::before{ left:24px; } }
+
+  .contact-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+    gap:56px;
+    align-items:start;
+    padding-bottom:80px;
+    border-bottom:1px solid var(--border);
+  }
+
+  .contact .brand{
+    font-family:'Oswald','Arial Narrow',sans-serif;
+    font-weight:600;
+    font-size:clamp(44px, 5.2vw, 68px);
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    line-height:1;
+    margin:0 0 14px;
+    color:var(--text);
+  }
+  .contact .brand-sub{
+    font-family:'Inter',sans-serif;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    color:var(--gold);
+    margin:0 0 22px;
+  }
+  .contact .estab{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:0.06em;
+    line-height:1.8;
+  }
+
+  .contact .block h4{
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    color:var(--gold);
+    margin:0 0 18px;
+  }
+  .contact .block .body{
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    color:var(--muted-strong);
+    line-height:1.75;
+  }
+  .contact .block .body a{
+    color:var(--text);
+    text-decoration:none;
+    border-bottom:1px solid var(--border);
+    padding-bottom:1px;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .contact .block .body a:hover{
+    color:var(--gold);
+    border-bottom-color:var(--gold);
+  }
+  .contact .block .mono{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--text);
+    letter-spacing:0.02em;
+  }
+
+  .footer-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+    padding:28px 0 8px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:0.04em;
+  }
+  .footer-bar .left{ display:flex; gap:20px; flex-wrap:wrap;}
+  .footer-bar a{ color:var(--muted); text-decoration:none;}
+  .footer-bar a:hover{ color:var(--gold);}
+
+  @media (max-width:900px){
+    .contact-grid{ grid-template-columns:1fr; gap:40px;}
+    .footer-bar{ flex-direction:column; align-items:flex-start; gap:10px;}
+  }
+
+  /* ============ MICRO-TOP GLOBAL REGISTER BAR ============ */
+  .topbar{
+    position:relative;
+    z-index:2;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    color:var(--muted);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    border-bottom:1px solid var(--border);
+    padding:12px 0;
+  }
+  .topbar .frame{ display:flex; justify-content:space-between; gap:16px;}
+  .topbar .dot{ color:var(--gold);}
+  @media (max-width:720px){ .topbar .frame{ font-size:9.5px; }}
+
+</style>
+</head>
+<body>
+
+  <!-- cursor torch layers -->
+  <div class="torch-dim" aria-hidden="true"></div>
+  <div class="torch-glow" aria-hidden="true"></div>
+
+  <!-- thin corporate register bar -->
+  <div class="topbar">
+    <div class="frame">
+      <span>IMPORTIA <span class="dot">·</span> HANDELSHAUS SEIT MMXXVI</span>
+      <span class="hide-sm">DEUTSCHLAND <span class="dot">·</span> EU <span class="dot">·</span> INTL.</span>
+    </div>
+  </div>
+
+  <!-- =================== HERO =================== -->
+  <section class="hero">
+    <div class="frame hero-top">
+      <div class="eyebrow">
+        IMPORTIA &nbsp; DEUTSCHLAND
+      </div>
+      <div class="meta-right">
+        <div><span class="dot"></span>DE / 52349 DÜREN</div>
+        <div>N 50° 48′ · E 06° 29′</div>
+      </div>
+    </div>
+
+    <div class="frame hero-center">
+      <div class="logo-plate">
+        <span class="c2"></span><span class="c3"></span>
+        <div class="logo-wrap">
+          <img src="assets/importia-logo-transparent.png" alt="IMPORTIA" />
+        </div>
+      </div>
+
+      <h1>
+        Deutsche Qualität.<br/>
+        <span class="em">Globale Märkte.</span>
+      </h1>
+
+      <p class="tagline">
+        Import <span class="pipe">·</span> Export <span class="pipe">·</span> Handel <span class="pipe">·</span> Online und vor Ort
+      </p>
+
+      <div class="horizon" style="max-width:560px; width:100%;">
+        <span>EST. 2026</span>
+        <span class="rule"></span>
+        <span>HANDELSHAUS</span>
+      </div>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <div class="line"></div>
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+        <path d="M1 3 L5 7 L9 3" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- =================== TÄTIGKEITSFELDER =================== -->
+  <section class="fields">
+    <div class="frame">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Tätigkeitsfelder</div>
+          <h2>Drei Richtungen, ein Handelshaus.</h2>
+        </div>
+        <div class="head-right">
+          § 02 / 03<br/>
+          CH &middot; EU &middot; ASIA &middot; NA
+        </div>
+      </div>
+
+      <div class="cols">
+
+        <!-- IMPORT -->
+        <div class="col">
+          <div class="num"><span class="tick"></span>01 &nbsp;/&nbsp; I</div>
+          <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 22 H28"/>
+            <path d="M16 6 V20"/>
+            <path d="M10 14 L16 20 L22 14"/>
+          </svg>
+          <h3>Import</h3>
+          <p class="kicker">Bezug &middot; Beschaffung &middot; Zoll</p>
+          <p>IMPORTIA bezieht Warensortimente aus Asien, Nordamerika und ausgewählten Nachbarmärkten Europas. Die Auswahl folgt langfristigen Partnerschaften, nicht kurzfristigem Angebot.</p>
+          <p>Kompetenzen umfassen Zollabwicklung, Qualitätssicherung und die Verdichtung kleinerer Lieferanten zu einem verlässlichen Warenstrom.</p>
+          <div class="keys">
+            INCOTERMS <span>CIF &middot; DAP &middot; FOB</span><br/>
+            REGIONEN <span>CN &middot; VN &middot; US &middot; IT</span>
+          </div>
+        </div>
+
+        <div class="divider" aria-hidden="true"></div>
+
+        <!-- EXPORT -->
+        <div class="col">
+          <div class="num"><span class="tick"></span>02 &nbsp;/&nbsp; E</div>
+          <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 22 H28"/>
+            <path d="M16 20 V6"/>
+            <path d="M10 12 L16 6 L22 12"/>
+          </svg>
+          <h3>Export</h3>
+          <p class="kicker">Absatz &middot; Distribution &middot; Dokumentation</p>
+          <p>Deutsche und europäische Erzeugnisse finden über IMPORTIA den Weg in Märkte, in denen Herkunft und Verarbeitung zählen. Der Fokus liegt auf Konsumgütern und industriellem Bedarf.</p>
+          <p>Die Begleitung reicht von Ursprungsnachweisen und Exportdokumentation bis zur Koordination mit Logistikpartnern an den Zielorten.</p>
+          <div class="keys">
+            ZIELMÄRKTE <span>EU &middot; UK &middot; JP &middot; GCC</span><br/>
+            DOKUMENTE <span>EUR.1 &middot; A.TR &middot; CoO</span>
+          </div>
+        </div>
+
+        <div class="divider" aria-hidden="true"></div>
+
+        <!-- HANDEL -->
+        <div class="col">
+          <div class="num"><span class="tick"></span>03 &nbsp;/&nbsp; H</div>
+          <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="16" cy="16" r="10"/>
+            <path d="M6 16 H26"/>
+            <path d="M16 6 C20 10 20 22 16 26 C12 22 12 10 16 6 Z"/>
+          </svg>
+          <h3>Handel</h3>
+          <p class="kicker">Groß &middot; Einzeln &middot; Kuratiert</p>
+          <p>IMPORTIA arrangiert Warenströme zwischen Europa, Asien und Nordamerika für ausgewählte Handelspartner. Schwerpunkte liegen auf Konsumgütern, industriellem Bedarf und kuratierten Nischensortimenten.</p>
+          <p>Der Vertrieb erfolgt online über etablierte Marktplätze und vor Ort in direktem Kontakt mit Einkäufern und Fachhändlern.</p>
+          <div class="keys">
+            KANÄLE <span>B2B &middot; MARKTPLATZ &middot; DIREKT</span><br/>
+            SEGMENTE <span>KONSUM &middot; INDUSTRIE</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== KONTAKT =================== -->
+  <section class="contact">
+    <div class="frame">
+
+      <div class="contact-grid">
+
+        <div>
+          <div class="eyebrow" style="margin-bottom:28px;">Kontakt</div>
+          <h3 class="brand">IMPORTIA</h3>
+          <p class="brand-sub">Handelshaus &middot; Deutschland</p>
+          <div class="estab">
+            REG.-NR.&nbsp; <span style="color:var(--muted-strong)">HRB 000 000</span><br/>
+            USt-ID &nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--muted-strong)">DE 000 000 000</span><br/>
+            GEGR. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--muted-strong)">MMXXVI</span>
+          </div>
+        </div>
+
+        <div class="block">
+          <h4>Anschrift</h4>
+          <div class="body">
+            IMPORTIA<br/>
+            Musterstraße 1<br/>
+            52349 Düren<br/>
+            Deutschland
+          </div>
+        </div>
+
+        <div class="block">
+          <h4>Korrespondenz</h4>
+          <div class="body">
+            <span class="mono">+49 (0) 000 000 000</span><br/>
+            <a href="mailto:kontakt@importia.de">kontakt@importia.de</a><br/>
+            <span style="color:var(--muted)">Impressum folgt</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bar">
+        <div class="left">
+          <span>© 2026 IMPORTIA. Alle Rechte vorbehalten.</span>
+        </div>
+        <div class="right">
+          <span>DE / 52349 &middot; v 1.0</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+<script>
+  (function(){
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const noHover = window.matchMedia('(hover: none)').matches;
+    if (reduce || noHover) return;
+
+    const dim  = document.querySelector('.torch-dim');
+    const glow = document.querySelector('.torch-glow');
+    if (!dim || !glow) return;
+
+    // start centered, fade on once we have real cursor data
+    let tx = window.innerWidth / 2;
+    let ty = window.innerHeight / 2;
+    let mx = tx, my = ty;
+    let active = false;
+
+    function set(){
+      const w = window.innerWidth, h = window.innerHeight;
+      const xPct = (tx / w) * 100;
+      const yPct = (ty / h) * 100;
+      dim.style.setProperty('--tx', xPct.toFixed(2) + '%');
+      dim.style.setProperty('--ty', yPct.toFixed(2) + '%');
+      glow.style.setProperty('--gx', xPct.toFixed(2) + '%');
+      glow.style.setProperty('--gy', yPct.toFixed(2) + '%');
+    }
+    set();
+
+    // fade torch in immediately so the room starts dim
+    requestAnimationFrame(() => {
+      dim.classList.add('on');
+      glow.classList.add('on');
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+      if (!active){ active = true; }
+    }, { passive:true });
+
+    // when cursor leaves the window, gently shrink the beam
+    window.addEventListener('pointerleave', () => {
+      dim.style.setProperty('--tr', '120px');
+      glow.style.setProperty('--gr', '90px');
+    });
+    window.addEventListener('pointerenter', () => {
+      const w = window.innerWidth;
+      dim.style.setProperty('--tr',  (w < 600 ? 180 : 260) + 'px');
+      glow.style.setProperty('--gr', (w < 600 ? 130 : 190) + 'px');
+    });
+
+    // initial radius
+    {
+      const w = window.innerWidth;
+      dim.style.setProperty('--tr',  (w < 600 ? 180 : 260) + 'px');
+      glow.style.setProperty('--gr', (w < 600 ? 130 : 190) + 'px');
+    }
+
+    function tick(){
+      // smooth follow so the light has weight
+      tx += (mx - tx) * 0.18;
+      ty += (my - ty) * 0.18;
+      set();
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    window.addEventListener('resize', () => {
+      const w = window.innerWidth;
+      dim.style.setProperty('--tr',  (w < 600 ? 180 : 260) + 'px');
+      glow.style.setProperty('--gr', (w < 600 ? 130 : 190) + 'px');
+    });
+  })();
+</script>
+
+</body>
+</html>
