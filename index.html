@@ -137,8 +137,8 @@
     will-change: transform;
   }
   @keyframes globeSpin{
-    from{ transform: rotateY(0deg); }
-    to  { transform: rotateY(360deg); }
+    from{ transform: rotate(0deg); }
+    to  { transform: rotate(360deg); }
   }
 
   /* full-hero deco SVG (arcs, lanes, compass, postmarks) */
@@ -152,28 +152,26 @@
   }
   .fx-deco svg{ display:block; width:100%; height:100%; }
 
-  /* airplane following the dotted arc */
+  /* airplane orbiting the globe — circular orbit clockwise around hero centre */
   .fx-plane{
     position:absolute;
+    top: 50%;
+    left: 50%;
     width: 77px;
-    height: 24px;
+    height: 28px;
+    margin-left: -38.5px;
+    margin-top: -14px;
     color: var(--gold);
-    opacity: 0;
+    opacity: 0.85;
     z-index: 3; /* above logo (logo-plate is z:2) */
-    offset-path: path('M -120 460 C 280 200, 920 200, 1320 460');
-    offset-rotate: auto;
-    animation: planeFly 30s linear infinite;
-    will-change: offset-distance, opacity;
+    transform-origin: center;
+    animation: planeOrbit 30s linear infinite;
+    will-change: transform;
   }
   .fx-plane svg{ display:block; width:100%; height:100%; }
-  @keyframes planeFly{
-    0%   { offset-distance: 0%;   opacity: 0; }
-    5%   { opacity: 0.85; }
-    42%  { opacity: 0.85; }
-    50%  { opacity: 0.30; }   /* dip while crossing logo centre — fakes "behind logo" */
-    58%  { opacity: 0.85; }
-    92%  { opacity: 0.85; }
-    100% { offset-distance: 100%; opacity: 0; }
+  @keyframes planeOrbit{
+    from { transform: rotate(0deg)   translate(280px, 0) rotate(90deg); }
+    to   { transform: rotate(360deg) translate(280px, 0) rotate(90deg); }
   }
 
   /* container ship sailing across bottom (slow) */
@@ -222,7 +220,7 @@
   /* floating package parcels */
   .fx-parcel-wrap{ position:absolute; will-change: transform; }
   .fx-parcel-wrap.p1{ top: 28%; left: 8%;  }
-  .fx-parcel-wrap.p2{ top: 22%; right: 9%; }
+  .fx-parcel-wrap.p2{ bottom: 32%; right: 11%; }
   .fx-parcel-wrap.p3{ bottom: 38%; left: 13%; }
   .fx-parcel{
     color: var(--gold-dim);
@@ -242,7 +240,11 @@
   @media (max-width:720px){
     .fx-ship, .fx-truck, .fx-parcel-wrap{ display:none; }
     .fx-globe{ width: clamp(320px, 80vw, 480px); }
-    .fx-plane{ width: 58px; height: 19px; }
+    .fx-plane{ width: 58px; height: 22px; margin-left: -29px; margin-top: -11px; }
+    @keyframes planeOrbit{
+      from { transform: rotate(0deg)   translate(190px, 0) rotate(90deg); }
+      to   { transform: rotate(360deg) translate(190px, 0) rotate(90deg); }
+    }
   }
   @media (prefers-reduced-motion: reduce){
     .fx-grid, .fx-globe, .fx-plane, .fx-ship, .fx-truck, .fx-parcel{
@@ -319,31 +321,7 @@
     perspective: 900px;
     transform-style: preserve-3d;
   }
-  .logo-plate .logo-wrap::before{
-    /* soft warm halo behind logo, almost reading as a light source */
-    content:"";
-    position:absolute;
-    inset:-55% -55%;
-    background:
-      radial-gradient(closest-side, rgba(255,220,150,0.32), rgba(232,190,110,0.10) 35%, rgba(184,146,74,0.02) 60%, rgba(184,146,74,0) 78%);
-    filter:blur(22px);
-    z-index:0;
-    animation:haloPulse 12s ease-in-out infinite;
-    pointer-events:none;
-    mix-blend-mode:screen;
-  }
-  .logo-plate .logo-wrap::after{
-    /* second hotter core behind logo center, static */
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-      radial-gradient(closest-side, rgba(255,240,200,0.18), rgba(255,220,160,0.12) 50%, rgba(0,0,0,0) 75%);
-    filter:blur(10px);
-    z-index:0;
-    pointer-events:none;
-    mix-blend-mode:screen;
-  }
+  /* halo entfernt — Logo trägt sich selbst über drop-shadow + brightness/contrast */
   .logo-plate img{
     position:relative;
     z-index:1;
@@ -356,12 +334,13 @@
     transform-origin:center;
     will-change:transform, opacity;
     filter:
-      drop-shadow(0 0 24px rgba(255,220,150,0.22))
-      drop-shadow(0 4px 8px rgba(0,0,0,0.55))
-      drop-shadow(0 14px 26px rgba(0,0,0,0.45))
-      brightness(1.20)
-      contrast(1.10)
-      saturate(1.12);
+      drop-shadow(0 0 32px rgba(255,220,150,0.40))
+      drop-shadow(0 0 8px rgba(255,255,255,0.18))
+      drop-shadow(0 2px 4px rgba(0,0,0,0.7))
+      drop-shadow(0 8px 14px rgba(0,0,0,0.55))
+      brightness(1.32)
+      contrast(1.20)
+      saturate(1.18);
   }
 
   @keyframes logoIn{
@@ -374,15 +353,8 @@
     50%     { transform:translateY(-2px) scale(1.006) rotateX(0deg)   rotateY(0deg); }
     75%     { transform:translateY(-1px) scale(1.004) rotateX(-0.5deg) rotateY(-1deg); }
   }
-  @keyframes haloPulse{
-    0%,100% { opacity:0.55; transform:scale(0.98); }
-    50%     { opacity:0.75; transform:scale(1.03); }
-  }
-
   @media (prefers-reduced-motion: reduce){
-    .logo-plate img,
-    .logo-plate .logo-wrap::before,
-    .logo-plate .logo-wrap::after{ animation:none !important; }
+    .logo-plate img{ animation:none !important; }
   }
 
   @media (max-width:720px){
@@ -755,13 +727,11 @@
 
       <!-- decoration layer: dotted air route, shipping lane, compass -->
       <svg class="fx-deco" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
-        <!-- air route arc — matches .fx-plane offset-path -->
-        <path d="M -120 460 C 280 200, 920 200, 1320 460" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 8" opacity="0.6"/>
         <!-- shipping lane -->
         <path d="M -200 540 L 1400 540" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 6" opacity="0.4"/>
 
         <!-- compass rose, top-right (relocated, scaled 0.6×, dezent) -->
-        <g transform="translate(1010,150) scale(0.6)" stroke="currentColor" fill="none" stroke-width="1.2" opacity="0.22">
+        <g transform="translate(1010,118) scale(0.6)" stroke="currentColor" fill="none" stroke-width="1.2" opacity="0.22">
           <circle r="34"/>
           <circle r="24" stroke-dasharray="1 3" opacity="0.6"/>
           <path d="M 0 -36 L -5 0 L 0 -8 L 5 0 Z" fill="currentColor"/>
@@ -775,12 +745,19 @@
         </g>
       </svg>
 
-      <!-- airplane silhouette flying along the air route -->
+      <!-- airplane silhouette orbiting the globe (real passenger jet, side view) -->
       <div class="fx-plane">
-        <svg viewBox="0 0 64 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M2 12 L8 9 L22 9 L30 4 L40 4 L46 9 L58 9 L62 7 L62 13 L58 11 L46 11 L40 16 L30 16 L22 11 L8 11 Z"/>
-          <line x1="14" y1="6" x2="14" y2="14" opacity="0.7"/>
-          <circle cx="20" cy="10" r="0.9" fill="currentColor"/>
+        <svg viewBox="0 0 88 28" fill="currentColor">
+          <!-- fuselage capsule -->
+          <path d="M 6 14 C 6 11.5, 13 9.5, 25 9.5 L 70 9.5 C 80 9.5, 86 11.5, 87 14 C 86 16.5, 80 18.5, 70 18.5 L 25 18.5 C 13 18.5, 6 16.5, 6 14 Z"/>
+          <!-- vertical tail fin -->
+          <path d="M 13 9.5 L 6 1 L 16 1 L 24 9.5 Z"/>
+          <!-- horizontal stabilizer (rear) -->
+          <path d="M 8 14 L 0 12 L 0 16 Z"/>
+          <!-- main wings (chevron under fuselage) -->
+          <path d="M 38 18.5 L 28 27 L 56 27 L 50 18.5 Z"/>
+          <!-- engine pod under wing -->
+          <ellipse cx="44" cy="22" rx="3" ry="1.4"/>
         </svg>
       </div>
 
