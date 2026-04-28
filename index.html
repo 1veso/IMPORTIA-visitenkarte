@@ -48,71 +48,6 @@
 
   ::selection{background:var(--accent-navy);color:var(--text)}
 
-  /* ============ CURSOR TORCH ============ */
-  /* The page sits in a dim room. A soft warm light follows the cursor
-     so the user illuminates their own reading path. Uses a mask on a
-     dark overlay so content around the cursor stays at full contrast,
-     and content far from the cursor is dimmed toward the room. */
-  .torch-dim{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:2;
-    background:rgba(6,9,14,0.18);
-    --tx: 50%;
-    --ty: 50%;
-    --tr: 260px;
-    -webkit-mask-image:
-      radial-gradient(
-        circle var(--tr) at var(--tx) var(--ty),
-        rgba(0,0,0,0) 0%,
-        rgba(0,0,0,0.25) 55%,
-        rgba(0,0,0,0.7) 85%,
-        rgba(0,0,0,1) 100%
-      );
-            mask-image:
-      radial-gradient(
-        circle var(--tr) at var(--tx) var(--ty),
-        rgba(0,0,0,0) 0%,
-        rgba(0,0,0,0.25) 55%,
-        rgba(0,0,0,0.7) 85%,
-        rgba(0,0,0,1) 100%
-      );
-    opacity:0;
-    transition:opacity 1.2s ease;
-    will-change: mask-image;
-  }
-  .torch-dim.on{ opacity:1; }
-
-  /* warm glow layer sitting on top of the dim mask: a small additive pool of light */
-  .torch-glow{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:3;
-    mix-blend-mode:screen;
-    --gx: 50%;
-    --gy: 50%;
-    --gr: 200px;
-    background:
-      radial-gradient(
-        circle var(--gr) at var(--gx) var(--gy),
-        rgba(255, 236, 196, 0.22) 0%,
-        rgba(232, 200, 130, 0.12) 30%,
-        rgba(184, 146, 74, 0.04) 60%,
-        rgba(0,0,0,0) 80%
-      );
-    opacity:0;
-    transition:opacity 1.2s ease;
-    will-change: background;
-  }
-  .torch-glow.on{ opacity:1; }
-
-  /* On touch/no-hover devices, hide the torch entirely. */
-  @media (hover: none), (prefers-reduced-motion: reduce){
-    .torch-dim, .torch-glow{ display:none; }
-  }
-
   /* shared layout */
   .frame{
     max-width:1280px;
@@ -209,8 +144,8 @@
 
   .logo-plate .logo-wrap{
     position:relative;
-    width:240px;
-    max-width:54vw;
+    width:clamp(220px, 28vw, 340px);
+    max-width:52vw;
     display:block;
     perspective: 900px;
     transform-style: preserve-3d;
@@ -221,24 +156,22 @@
     position:absolute;
     inset:-55% -55%;
     background:
-      radial-gradient(closest-side, rgba(255,220,150,0.55), rgba(232,190,110,0.20) 35%, rgba(184,146,74,0.06) 60%, rgba(184,146,74,0) 78%);
-    filter:blur(18px);
+      radial-gradient(closest-side, rgba(255,220,150,0.32), rgba(232,190,110,0.10) 35%, rgba(184,146,74,0.02) 60%, rgba(184,146,74,0) 78%);
+    filter:blur(22px);
     z-index:0;
-    animation:haloPulse 6.5s ease-in-out infinite;
+    animation:haloPulse 12s ease-in-out infinite;
     pointer-events:none;
     mix-blend-mode:screen;
   }
   .logo-plate .logo-wrap::after{
-    /* second hotter core behind logo center */
+    /* second hotter core behind logo center, static */
     content:"";
     position:absolute;
     inset:0;
     background:
-      radial-gradient(closest-side, rgba(255,240,200,0.38), rgba(255,220,160,0.12) 50%, rgba(0,0,0,0) 75%);
+      radial-gradient(closest-side, rgba(255,240,200,0.18), rgba(255,220,160,0.12) 50%, rgba(0,0,0,0) 75%);
     filter:blur(10px);
     z-index:0;
-    animation:haloPulse 5s ease-in-out infinite;
-    animation-delay:-1.2s;
     pointer-events:none;
     mix-blend-mode:screen;
   }
@@ -249,37 +182,15 @@
     height:auto;
     display:block;
     animation:
-      logoFloat 7s ease-in-out infinite,
-      logoIn 1.4s cubic-bezier(.2,.7,.2,1) both,
-      logoHue 11s ease-in-out infinite;
+      logoFloat 9s ease-in-out infinite,
+      logoIn 1.4s cubic-bezier(.2,.7,.2,1) both;
     transform-origin:center;
-    will-change:transform, opacity, filter;
+    will-change:transform, opacity;
     filter:
-      drop-shadow(0 0 18px rgba(255,220,150,0.35))
-      drop-shadow(0 0 42px rgba(232,190,110,0.25))
-      drop-shadow(0 14px 28px rgba(0,0,0,0.55))
-      drop-shadow(0 4px 10px rgba(0,0,0,0.45))
-      drop-shadow(0 1px 0 rgba(255,230,180,0.25))
-      brightness(1.28)
-      contrast(1.08)
-      saturate(1.10);
-  }
-
-  @keyframes logoHue{
-    0%,100% { filter:
-      drop-shadow(0 0 18px rgba(255,220,150,0.35))
-      drop-shadow(0 0 42px rgba(232,190,110,0.25))
-      drop-shadow(0 14px 28px rgba(0,0,0,0.55))
-      drop-shadow(0 4px 10px rgba(0,0,0,0.45))
-      drop-shadow(0 1px 0 rgba(255,230,180,0.25))
-      brightness(1.28) contrast(1.08) saturate(1.10) hue-rotate(0deg); }
-    50%     { filter:
-      drop-shadow(0 0 28px rgba(255,230,170,0.55))
-      drop-shadow(0 0 64px rgba(255,200,120,0.35))
-      drop-shadow(0 16px 34px rgba(0,0,0,0.60))
-      drop-shadow(0 4px 12px rgba(0,0,0,0.50))
-      drop-shadow(0 1px 0 rgba(255,230,180,0.35))
-      brightness(1.40) contrast(1.10) saturate(1.22) hue-rotate(-10deg); }
+      drop-shadow(0 0 22px rgba(255,220,150,0.20))
+      drop-shadow(0 12px 22px rgba(0,0,0,0.45))
+      brightness(1.10)
+      contrast(1.04);
   }
 
   @keyframes logoIn{
@@ -287,19 +198,25 @@
     100% { opacity:1; transform:translateY(0)    scale(1);     filter:blur(0); }
   }
   @keyframes logoFloat{
-    0%,100% { transform:translateY(0)    scale(1) rotateX(0deg)    rotateY(0deg); }
-    25%     { transform:translateY(-3px) scale(1.006) rotateX(1.2deg) rotateY(2.2deg); }
-    50%     { transform:translateY(-4px) scale(1.008) rotateX(0deg)   rotateY(0deg); }
-    75%     { transform:translateY(-3px) scale(1.006) rotateX(-1.2deg) rotateY(-2.2deg); }
+    0%,100% { transform:translateY(0)    scale(1) rotateX(0deg)   rotateY(0deg); }
+    25%     { transform:translateY(-1px) scale(1.004) rotateX(0.5deg) rotateY(1deg); }
+    50%     { transform:translateY(-2px) scale(1.006) rotateX(0deg)   rotateY(0deg); }
+    75%     { transform:translateY(-1px) scale(1.004) rotateX(-0.5deg) rotateY(-1deg); }
   }
   @keyframes haloPulse{
-    0%,100% { opacity:0.75; transform:scale(0.98); }
-    50%     { opacity:1.1;  transform:scale(1.08); }
+    0%,100% { opacity:0.55; transform:scale(0.98); }
+    50%     { opacity:0.75; transform:scale(1.03); }
   }
 
   @media (prefers-reduced-motion: reduce){
     .logo-plate img,
-    .logo-plate .logo-wrap::before{ animation:none !important; }
+    .logo-plate .logo-wrap::before,
+    .logo-plate .logo-wrap::after{ animation:none !important; }
+  }
+
+  @media (max-width:720px){
+    .hero-center{ padding:48px 0 24px; }
+    .hero h1{ margin-top:36px; }
   }
 
   .hero h1{
@@ -621,10 +538,6 @@
 </head>
 <body>
 
-  <!-- cursor torch layers -->
-  <div class="torch-dim" aria-hidden="true"></div>
-  <div class="torch-glow" aria-hidden="true"></div>
-
   <!-- thin corporate register bar -->
   <div class="topbar">
     <div class="frame">
@@ -766,7 +679,7 @@
           <h3 class="brand">IMPORTIA</h3>
           <p class="brand-sub">Handelshaus &middot; Deutschland</p>
           <div class="estab">
-            REG.-NR.&nbsp; <span style="color:var(--muted-strong)">HRB 000 000</span><br/>
+            REG.-NR.&nbsp; <span style="color:var(--muted-strong)">HRB 10102</span><br/>
             USt-ID &nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--muted-strong)">DE 000 000 000</span><br/>
             GEGR. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--muted-strong)">MMXXVI</span>
           </div>
@@ -776,7 +689,7 @@
           <h4>Anschrift</h4>
           <div class="body">
             IMPORTIA<br/>
-            Musterstraße 1<br/>
+            Weierstraße 10<br/>
             52349 Düren<br/>
             Deutschland
           </div>
@@ -787,7 +700,7 @@
           <div class="body">
             <span class="mono">+49 (0) 000 000 000</span><br/>
             <a href="mailto:kontakt@importia.de">kontakt@importia.de</a><br/>
-            <span style="color:var(--muted)">Impressum folgt</span>
+            <a href="impressum.html">Impressum</a>&nbsp;·&nbsp;<a href="datenschutz.html">Datenschutz</a>
           </div>
         </div>
 
@@ -806,80 +719,6 @@
 
     </div>
   </section>
-
-<script>
-  (function(){
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const noHover = window.matchMedia('(hover: none)').matches;
-    if (reduce || noHover) return;
-
-    const dim  = document.querySelector('.torch-dim');
-    const glow = document.querySelector('.torch-glow');
-    if (!dim || !glow) return;
-
-    // start centered, fade on once we have real cursor data
-    let tx = window.innerWidth / 2;
-    let ty = window.innerHeight / 2;
-    let mx = tx, my = ty;
-    let active = false;
-
-    function set(){
-      const w = window.innerWidth, h = window.innerHeight;
-      const xPct = (tx / w) * 100;
-      const yPct = (ty / h) * 100;
-      dim.style.setProperty('--tx', xPct.toFixed(2) + '%');
-      dim.style.setProperty('--ty', yPct.toFixed(2) + '%');
-      glow.style.setProperty('--gx', xPct.toFixed(2) + '%');
-      glow.style.setProperty('--gy', yPct.toFixed(2) + '%');
-    }
-    set();
-
-    // fade torch in immediately so the room starts dim
-    requestAnimationFrame(() => {
-      dim.classList.add('on');
-      glow.classList.add('on');
-    });
-
-    window.addEventListener('pointermove', (e) => {
-      mx = e.clientX;
-      my = e.clientY;
-      if (!active){ active = true; }
-    }, { passive:true });
-
-    // when cursor leaves the window, gently shrink the beam
-    window.addEventListener('pointerleave', () => {
-      dim.style.setProperty('--tr', '120px');
-      glow.style.setProperty('--gr', '90px');
-    });
-    window.addEventListener('pointerenter', () => {
-      const w = window.innerWidth;
-      dim.style.setProperty('--tr',  (w < 600 ? 180 : 260) + 'px');
-      glow.style.setProperty('--gr', (w < 600 ? 130 : 190) + 'px');
-    });
-
-    // initial radius
-    {
-      const w = window.innerWidth;
-      dim.style.setProperty('--tr',  (w < 600 ? 180 : 260) + 'px');
-      glow.style.setProperty('--gr', (w < 600 ? 130 : 190) + 'px');
-    }
-
-    function tick(){
-      // smooth follow so the light has weight
-      tx += (mx - tx) * 0.18;
-      ty += (my - ty) * 0.18;
-      set();
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-
-    window.addEventListener('resize', () => {
-      const w = window.innerWidth;
-      dim.style.setProperty('--tr',  (w < 600 ? 180 : 260) + 'px');
-      glow.style.setProperty('--gr', (w < 600 ? 130 : 190) + 'px');
-    });
-  })();
-</script>
 
 </body>
 </html>
