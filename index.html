@@ -81,6 +81,165 @@
     flex-direction:column;
     position:relative;
     padding:40px 0 64px;
+    overflow:hidden;
+  }
+
+  /* ============ HERO FX (parallax world-trade tableau) ============ */
+  .hero-fx{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    overflow:hidden;
+  }
+  /* keep existing hero content above the fx layer */
+  .hero > .frame,
+  .hero > .scroll-hint{ position:relative; z-index:2; }
+
+  /* deep-background drifting dot grid */
+  .fx-grid{
+    position:absolute;
+    inset:-15% -15%;
+    background-image:
+      radial-gradient(circle, rgba(208,168,88,0.20) 1px, transparent 1.4px);
+    background-size: 38px 38px;
+    opacity:0.20;
+    -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.95) 28%, rgba(0,0,0,0) 78%);
+    mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.95) 28%, rgba(0,0,0,0) 78%);
+    animation: gridDrift 70s linear infinite;
+    will-change: background-position;
+  }
+  @keyframes gridDrift{
+    0%   { background-position: 0 0; }
+    100% { background-position: 380px 380px; }
+  }
+
+  /* large rotating globe behind logo */
+  .fx-globe-wrap{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--gold-dim);
+    opacity:0.10;
+    will-change: transform;
+  }
+  .fx-globe{
+    width: clamp(420px, 56vw, 760px);
+    height: auto;
+    animation: globeRotate 80s linear infinite;
+    transform-origin: center;
+    will-change: transform;
+  }
+  @keyframes globeRotate{
+    to{ transform: rotate(360deg); }
+  }
+
+  /* full-hero deco SVG (arcs, lanes, compass, postmarks) */
+  .fx-deco{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    color:var(--gold-dim);
+    will-change: transform;
+  }
+  .fx-deco svg{ display:block; width:100%; height:100%; }
+
+  /* airplane following the dotted arc */
+  .fx-plane{
+    position:absolute;
+    width: 64px;
+    height: 20px;
+    color: var(--gold);
+    opacity: 0;
+    offset-path: path('M -120 480 Q 600 60 1320 480');
+    offset-rotate: auto;
+    animation: planeFly 30s linear infinite;
+    will-change: offset-distance, opacity;
+  }
+  .fx-plane svg{ display:block; width:100%; height:100%; }
+  @keyframes planeFly{
+    0%   { offset-distance: 0%;   opacity: 0; }
+    5%   { opacity: 0.85; }
+    92%  { opacity: 0.85; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+
+  /* container ship sailing across bottom (slow) */
+  .fx-ship{
+    position:absolute;
+    bottom: 96px;
+    left: 0;
+    width: 130px;
+    height: 42px;
+    color: var(--muted-strong);
+    opacity: 0;
+    transform: translateX(calc(100vw + 200px));
+    animation: shipSail 65s linear infinite;
+    will-change: transform, opacity;
+  }
+  .fx-ship svg{ display:block; width:100%; height:100%; }
+  @keyframes shipSail{
+    0%   { transform: translateX(calc(100vw + 200px)); opacity: 0; }
+    3%   { opacity: 0.50; }
+    97%  { opacity: 0.50; }
+    100% { transform: translateX(-220px); opacity: 0; }
+  }
+
+  /* delivery truck driving across mid-bottom */
+  .fx-truck{
+    position:absolute;
+    bottom: 50px;
+    left: 0;
+    width: 92px;
+    height: 32px;
+    color: var(--muted-strong);
+    opacity: 0;
+    transform: translateX(-200px);
+    animation: truckDrive 38s linear infinite;
+    animation-delay: -16s;
+    will-change: transform, opacity;
+  }
+  .fx-truck svg{ display:block; width:100%; height:100%; }
+  @keyframes truckDrive{
+    0%   { transform: translateX(-200px); opacity: 0; }
+    4%   { opacity: 0.58; }
+    96%  { opacity: 0.58; }
+    100% { transform: translateX(calc(100vw + 220px)); opacity: 0; }
+  }
+
+  /* floating package parcels */
+  .fx-parcel-wrap{ position:absolute; will-change: transform; }
+  .fx-parcel-wrap.p1{ top: 28%; left: 8%;  }
+  .fx-parcel-wrap.p2{ top: 22%; right: 9%; }
+  .fx-parcel-wrap.p3{ bottom: 38%; left: 13%; }
+  .fx-parcel{
+    color: var(--gold-dim);
+    opacity: 0.38;
+    animation: parcelBob 6s ease-in-out infinite;
+    will-change: transform;
+  }
+  .fx-parcel-wrap.p2 .fx-parcel{ animation-delay: -3s; }
+  .fx-parcel-wrap.p3 .fx-parcel{ animation-delay: -1.5s; }
+  .fx-parcel svg{ display:block; }
+  @keyframes parcelBob{
+    0%,100% { transform: translateY(0) rotate(-2deg); }
+    50%     { transform: translateY(-7px) rotate(2deg); }
+  }
+
+  /* ===== fx mobile + reduced motion ===== */
+  @media (max-width:720px){
+    .fx-ship, .fx-truck, .fx-parcel-wrap{ display:none; }
+    .fx-globe{ width: clamp(320px, 80vw, 480px); }
+    .fx-plane{ width: 48px; height: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .fx-grid, .fx-globe, .fx-plane, .fx-ship, .fx-truck, .fx-parcel{
+      animation: none !important;
+    }
+    .fx-plane, .fx-ship, .fx-truck{ display:none; }
   }
 
   .hero-top{
@@ -111,6 +270,7 @@
     justify-content:center;
     text-align:center;
     padding:80px 0 40px;
+    perspective: 1400px;
   }
 
   .logo-plate{
@@ -548,6 +708,150 @@
 
   <!-- =================== HERO =================== -->
   <section class="hero">
+
+    <!-- ================== HERO FX TABLEAU ================== -->
+    <div class="hero-fx" aria-hidden="true">
+
+      <!-- deep-bg drifting dot grid -->
+      <div class="fx-grid"></div>
+
+      <!-- rotating world globe behind logo -->
+      <div class="fx-globe-wrap">
+        <svg class="fx-globe" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round">
+          <circle cx="100" cy="100" r="92"/>
+          <ellipse cx="100" cy="100" rx="92" ry="22" stroke-width="0.7"/>
+          <ellipse cx="100" cy="100" rx="92" ry="55" stroke-width="0.6"/>
+          <ellipse cx="100" cy="100" rx="60" ry="92" stroke-width="0.6"/>
+          <ellipse cx="100" cy="100" rx="28" ry="92" stroke-width="0.6"/>
+          <line x1="8" y1="100" x2="192" y2="100"/>
+          <line x1="100" y1="8" x2="100" y2="192" stroke-width="0.6"/>
+          <path d="M 60 70 Q 70 60 80 65 Q 88 75 80 85 Q 70 80 60 70 Z" fill="currentColor" opacity="0.55"/>
+          <path d="M 110 50 Q 130 55 140 70 Q 130 90 115 80 Q 105 65 110 50 Z" fill="currentColor" opacity="0.55"/>
+          <path d="M 130 110 Q 145 115 145 130 Q 130 140 120 130 Z" fill="currentColor" opacity="0.55"/>
+          <path d="M 70 120 Q 90 125 95 140 Q 80 150 65 140 Z" fill="currentColor" opacity="0.55"/>
+        </svg>
+      </div>
+
+      <!-- decoration layer: dotted air route, shipping lane, compass, postmarks -->
+      <svg class="fx-deco" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
+        <!-- air route arc -->
+        <path d="M -120 480 Q 600 60 1320 480" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 8" opacity="0.55"/>
+        <!-- shipping lane -->
+        <path d="M -200 540 L 1400 540" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 6" opacity="0.4"/>
+
+        <!-- compass rose, bottom-left -->
+        <g transform="translate(110,490)" stroke="currentColor" fill="none" stroke-width="1.2" opacity="0.55">
+          <circle r="34"/>
+          <circle r="24" stroke-dasharray="1 3" opacity="0.6"/>
+          <path d="M 0 -36 L -5 0 L 0 -8 L 5 0 Z" fill="currentColor"/>
+          <path d="M 0 36 L -5 0 L 0 8 L 5 0 Z"/>
+          <path d="M 36 0 L 0 -5 L -8 0 L 0 5 Z"/>
+          <path d="M -36 0 L 0 -5 L 8 0 L 0 5 Z"/>
+          <text x="0" y="-43" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" letter-spacing="2" fill="currentColor">N</text>
+          <text x="0" y="55" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" letter-spacing="2" fill="currentColor">S</text>
+          <text x="44" y="3" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" letter-spacing="2" fill="currentColor">E</text>
+          <text x="-44" y="3" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" letter-spacing="2" fill="currentColor">W</text>
+        </g>
+
+        <!-- DÜREN postmark, top-right -->
+        <g transform="translate(1080,130)" stroke="currentColor" fill="none" stroke-width="0.9" opacity="0.55">
+          <circle r="48"/>
+          <circle r="42" stroke-dasharray="1 2.5"/>
+          <text x="0" y="-22" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" letter-spacing="3" fill="currentColor">★ DÜREN ★</text>
+          <text x="0" y="-2" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" letter-spacing="3" fill="currentColor">MMXXVI</text>
+          <text x="0" y="14" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6.5" letter-spacing="3.5" fill="currentColor">HANDELSHAUS</text>
+          <line x1="-32" y1="22" x2="32" y2="22"/>
+          <text x="0" y="34" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="5.5" letter-spacing="2.5" fill="currentColor">N50°48' · E06°29'</text>
+        </g>
+
+        <!-- EXPRESS / PAR AVION stamp at angle, bottom-right (sole accent-red touch) -->
+        <g transform="translate(1050,500) rotate(-9)" opacity="0.7">
+          <rect x="-66" y="-20" width="132" height="40" rx="2" stroke="var(--accent-red)" stroke-width="1.3" stroke-dasharray="3 3" fill="none"/>
+          <text x="0" y="-2" text-anchor="middle" font-family="'Oswald',sans-serif" font-weight="600" font-size="15" letter-spacing="5" fill="var(--accent-red)">EXPRESS</text>
+          <text x="0" y="11" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6" letter-spacing="3" fill="var(--accent-red)" opacity="0.85">PAR AVION · MMXXVI</text>
+        </g>
+      </svg>
+
+      <!-- airplane silhouette flying along the air route -->
+      <div class="fx-plane">
+        <svg viewBox="0 0 64 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 12 L8 9 L22 9 L30 4 L40 4 L46 9 L58 9 L62 7 L62 13 L58 11 L46 11 L40 16 L30 16 L22 11 L8 11 Z"/>
+          <line x1="14" y1="6" x2="14" y2="14" opacity="0.7"/>
+          <circle cx="20" cy="10" r="0.9" fill="currentColor"/>
+        </svg>
+      </div>
+
+      <!-- container ship sailing across the bottom -->
+      <div class="fx-ship">
+        <svg viewBox="0 0 100 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 22 L8 28 L88 28 L96 22 Z"/>
+          <rect x="14" y="14" width="9" height="8"/>
+          <rect x="25" y="14" width="9" height="8"/>
+          <rect x="36" y="14" width="9" height="8"/>
+          <rect x="47" y="14" width="9" height="8"/>
+          <rect x="20" y="6" width="9" height="8"/>
+          <rect x="31" y="6" width="9" height="8"/>
+          <rect x="42" y="6" width="9" height="8"/>
+          <rect x="62" y="10" width="14" height="12"/>
+          <line x1="66" y1="14" x2="72" y2="14"/>
+          <line x1="66" y1="18" x2="72" y2="18"/>
+          <rect x="78" y="6" width="3" height="6"/>
+          <line x1="79.5" y1="2" x2="79.5" y2="6" stroke-dasharray="0.6 1" opacity="0.55"/>
+        </svg>
+      </div>
+
+      <!-- delivery truck -->
+      <div class="fx-truck">
+        <svg viewBox="0 0 80 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="6" width="46" height="16"/>
+          <path d="M48 10 L56 10 L62 16 L62 22 L48 22"/>
+          <line x1="50" y1="12" x2="56" y2="12"/>
+          <line x1="56" y1="12" x2="60" y2="16"/>
+          <circle cx="12" cy="24" r="2.5"/>
+          <circle cx="56" cy="24" r="2.5"/>
+          <path d="M8 10 L16 16 L24 10" opacity="0.6"/>
+          <path d="M30 11 L42 11 M30 14 L40 14 M30 17 L42 17" opacity="0.4"/>
+        </svg>
+      </div>
+
+      <!-- floating parcels -->
+      <div class="fx-parcel-wrap p1">
+        <div class="fx-parcel">
+          <svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round">
+            <rect x="2" y="4.5" width="12" height="10"/>
+            <line x1="2" y1="9" x2="14" y2="9"/>
+            <line x1="8" y1="4.5" x2="8" y2="14.5"/>
+            <line x1="6" y1="2" x2="8" y2="4.5" stroke-dasharray="1 1.5"/>
+            <line x1="10" y1="2" x2="8" y2="4.5" stroke-dasharray="1 1.5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="fx-parcel-wrap p2">
+        <div class="fx-parcel">
+          <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round">
+            <rect x="2" y="4.5" width="12" height="10"/>
+            <line x1="2" y1="9" x2="14" y2="9"/>
+            <line x1="8" y1="4.5" x2="8" y2="14.5"/>
+            <line x1="6" y1="2" x2="8" y2="4.5" stroke-dasharray="1 1.5"/>
+            <line x1="10" y1="2" x2="8" y2="4.5" stroke-dasharray="1 1.5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="fx-parcel-wrap p3">
+        <div class="fx-parcel">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round">
+            <rect x="2" y="4.5" width="12" height="10"/>
+            <line x1="2" y1="9" x2="14" y2="9"/>
+            <line x1="8" y1="4.5" x2="8" y2="14.5"/>
+            <line x1="6" y1="2" x2="8" y2="4.5" stroke-dasharray="1 1.5"/>
+            <line x1="10" y1="2" x2="8" y2="4.5" stroke-dasharray="1 1.5"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+    <!-- ============== /HERO FX TABLEAU ============== -->
+
     <div class="frame hero-top">
       <div class="eyebrow">
         IMPORTIA &nbsp; DEUTSCHLAND
@@ -699,7 +1003,7 @@
           <h4>Korrespondenz</h4>
           <div class="body">
             <span class="mono">+49 (0) 000 000 000</span><br/>
-            <a href="mailto:kontakt@importia.de">kontakt@importia.de</a><br/>
+            <a href="mailto:info@importia.de">info@importia.de</a><br/>
             <a href="impressum.html">Impressum</a>&nbsp;·&nbsp;<a href="datenschutz.html">Datenschutz</a>
           </div>
         </div>
@@ -719,6 +1023,52 @@
 
     </div>
   </section>
+
+  <!-- GSAP + ScrollTrigger for hero parallax & subtle logo tilt -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script>
+    (function(){
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (typeof gsap === 'undefined') return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      // === Scroll parallax: each layer moves at a different rate ===
+      const trig = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true };
+      gsap.to('.fx-grid',       { yPercent: 30, ease: 'none', scrollTrigger: trig });
+      gsap.to('.fx-globe-wrap', { yPercent: 18, ease: 'none', scrollTrigger: trig });
+      gsap.to('.fx-deco',       { yPercent: 42, ease: 'none', scrollTrigger: trig });
+      gsap.to('.fx-parcel-wrap',{ yPercent: 60, ease: 'none', scrollTrigger: trig });
+
+      // === Subtle 3D tilt of logo plate on mouse move (hover-capable devices only) ===
+      if (!window.matchMedia('(hover: hover)').matches) return;
+      const hero  = document.querySelector('.hero');
+      const plate = document.querySelector('.logo-plate');
+      if (!hero || !plate) return;
+
+      let rect = hero.getBoundingClientRect();
+      const upd = () => { rect = hero.getBoundingClientRect(); };
+      window.addEventListener('resize', upd, { passive: true });
+      window.addEventListener('scroll', upd, { passive: true });
+
+      hero.addEventListener('mousemove', (e) => {
+        const cx = (e.clientX - rect.left) / rect.width  - 0.5;
+        const cy = (e.clientY - rect.top)  / rect.height - 0.5;
+        gsap.to(plate, {
+          rotateY: cx * 4,
+          rotateX: -cy * 3,
+          duration: 1.2,
+          ease: 'power2.out',
+          overwrite: 'auto',
+          transformPerspective: 1400
+        });
+      }, { passive: true });
+
+      hero.addEventListener('mouseleave', () => {
+        gsap.to(plate, { rotateY: 0, rotateX: 0, duration: 1.5, ease: 'power3.out' });
+      });
+    })();
+  </script>
 
 </body>
 </html>
