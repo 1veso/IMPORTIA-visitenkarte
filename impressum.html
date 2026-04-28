@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Impressum — IMPORTIA · Handelshaus</title>
+<meta name="description" content="Impressum der Importia UG (haftungsbeschränkt) – Handelshaus für Import, Export und Handel mit Sitz in Düren." />
+<meta name="robots" content="index,follow" />
+<link rel="canonical" href="https://importia.pages.dev/impressum.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F141C;
+    --card:#1A202B;
+    --text:#F2EEE4;
+    --muted:#A39E8F;
+    --muted-strong:#C4BFB1;
+    --accent-navy:#2A4A74;
+    --accent-red:#8C2A28;
+    --gold:#D0A858;
+    --gold-dim:#A5864A;
+    --border:#242D3B;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.55;
+    font-size:16px;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  /* subtle grain, inline SVG turbulence, fixed overlay */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:100;
+    opacity:0.04;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.8 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  ::selection{background:var(--accent-navy);color:var(--text)}
+
+  /* shared layout */
+  .frame{
+    max-width:1280px;
+    margin:0 auto;
+    padding:0 48px;
+  }
+  @media (max-width:720px){ .frame{ padding:0 24px; } }
+
+  /* tiny uppercase labels */
+  .eyebrow{
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .eyebrow .sep{
+    display:inline-block;
+    width:18px;
+    height:1px;
+    background:var(--gold-dim);
+    vertical-align:middle;
+    margin:0 10px 3px;
+  }
+  .eyebrow .eyebrow-link{
+    color:var(--gold);
+    text-decoration:none;
+    letter-spacing:0.22em;
+    transition:color .2s ease;
+  }
+  .eyebrow .eyebrow-link:hover{ color:var(--text); }
+  .eyebrow .eyebrow-section{
+    color:var(--muted);
+    font-weight:400;
+  }
+
+  /* ============ MICRO-TOP GLOBAL REGISTER BAR ============ */
+  .topbar{
+    position:relative;
+    z-index:2;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    color:var(--muted);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    border-bottom:1px solid var(--border);
+    padding:12px 0;
+  }
+  .topbar .frame{ display:flex; justify-content:space-between; gap:16px;}
+  .topbar .dot{ color:var(--gold);}
+  @media (max-width:720px){ .topbar .frame{ font-size:9.5px; }}
+
+  /* ============ LEGAL HEADER (analog hero-top) ============ */
+  .legal-header{
+    padding:32px 0 8px;
+  }
+  .hero-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:24px;
+  }
+  .hero-top .meta-right{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:0.05em;
+    text-align:right;
+    line-height:1.7;
+  }
+  .hero-top .meta-right .dot{
+    display:inline-block; width:5px; height:5px;
+    background:var(--gold); border-radius:50%;
+    margin-right:8px; vertical-align:middle;
+  }
+
+  /* ============ LEGAL CONTENT ============ */
+  .legal-content{
+    max-width:720px;
+    margin:0 auto;
+    padding:80px 24px 120px;
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:15.5px;
+    line-height:1.65;
+    color:var(--muted-strong);
+  }
+  .legal-content h1{
+    font-family:'Oswald','Arial Narrow',sans-serif;
+    font-weight:500;
+    font-size:clamp(36px, 4.4vw, 54px);
+    line-height:1.05;
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    color:var(--text);
+    margin:0 0 8px;
+    text-wrap:balance;
+  }
+  .legal-content .legal-eyebrow{
+    font-family:'Inter',sans-serif;
+    font-size:11px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin:0 0 56px;
+    border-bottom:1px solid var(--border);
+    padding-bottom:28px;
+    font-weight:500;
+  }
+  .legal-content h2{
+    font-family:'Oswald','Arial Narrow',sans-serif;
+    font-weight:500;
+    font-size:1.6rem;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    color:var(--text);
+    margin:3rem 0 1rem;
+    line-height:1.15;
+  }
+  .legal-content h3{
+    font-family:'Oswald','Arial Narrow',sans-serif;
+    font-weight:500;
+    font-size:1.2rem;
+    letter-spacing:0.02em;
+    color:var(--text);
+    margin:2rem 0 0.6rem;
+    line-height:1.2;
+  }
+  .legal-content h4{
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin:1.6rem 0 0.4rem;
+  }
+  .legal-content p{ margin:0 0 1rem; }
+  .legal-content strong{ font-weight:600; color:var(--text); }
+  .legal-content ul, .legal-content ol{
+    padding-left:1.5rem;
+    margin:0 0 1rem;
+  }
+  .legal-content ul li, .legal-content ol li{ margin-bottom:0.4rem; }
+  .legal-content a{
+    color:var(--text);
+    text-decoration:none;
+    border-bottom:1px solid var(--border);
+    padding-bottom:1px;
+    transition:border-color .2s ease, color .2s ease;
+    word-break:break-word;
+  }
+  .legal-content a:hover{
+    color:var(--gold);
+    border-bottom-color:var(--gold);
+  }
+  .legal-content .emphasize{
+    display:block;
+    border-left:2px solid var(--gold-dim);
+    padding:14px 18px;
+    margin:1.4rem 0;
+    background:rgba(208,168,88,0.04);
+    font-weight:600;
+    color:var(--text);
+    letter-spacing:0.01em;
+    font-size:14px;
+    line-height:1.7;
+  }
+  .legal-content .placeholder-block{
+    border-left:2px solid var(--border);
+    padding:14px 18px;
+    margin:1rem 0;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.7;
+  }
+  .legal-content .placeholder-block em{ font-style:italic; }
+  .legal-content hr{
+    border:none;
+    border-top:1px solid var(--border);
+    margin:3rem 0 2rem;
+  }
+  .legal-content .stand{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:0.06em;
+    margin-top:2rem;
+  }
+  @media (max-width:720px){
+    .legal-content{ padding:48px 16px 80px; }
+    .legal-content h2{ font-size:1.4rem; }
+    .legal-content h3{ font-size:1.1rem; }
+  }
+
+  /* ============ LEGAL FOOTER ============ */
+  .legal-foot{
+    border-top:1px solid var(--border);
+  }
+  .footer-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+    padding:28px 0 28px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:0.04em;
+  }
+  .footer-bar .left{ display:flex; gap:20px; flex-wrap:wrap;}
+  .footer-bar a{ color:var(--muted); text-decoration:none;}
+  .footer-bar a:hover{ color:var(--gold);}
+
+  @media (max-width:900px){
+    .footer-bar{ flex-direction:column; align-items:flex-start; gap:10px;}
+  }
+</style>
+</head>
+<body>
+
+  <!-- thin corporate register bar -->
+  <div class="topbar">
+    <div class="frame">
+      <span>IMPORTIA <span class="dot">·</span> HANDELSHAUS SEIT MMXXVI</span>
+      <span class="hide-sm">DEUTSCHLAND <span class="dot">·</span> EU <span class="dot">·</span> INTL.</span>
+    </div>
+  </div>
+
+  <header class="legal-header">
+    <div class="frame hero-top">
+      <div class="eyebrow">
+        <a href="index.html" class="eyebrow-link">IMPORTIA &nbsp; DEUTSCHLAND</a>
+        <span class="sep"></span>
+        <span class="eyebrow-section">Impressum</span>
+      </div>
+      <div class="meta-right">
+        <div><span class="dot"></span>DE / 52349 DÜREN</div>
+        <div>N 50° 48′ · E 06° 29′</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="legal-content">
+    <h1>Impressum</h1>
+    <p class="legal-eyebrow">Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz) sowie § 18 MStV</p>
+
+    <h2>Diensteanbieter</h2>
+    <p>
+      <strong>Importia UG (haftungsbeschränkt)</strong><br/>
+      Weierstraße 10<br/>
+      52349 Düren<br/>
+      Deutschland
+    </p>
+
+    <h2>Vertretungsberechtigte Geschäftsführerinnen</h2>
+    <p>
+      Jolanta Daugelaite<br/>
+      Irene Geier
+    </p>
+
+    <h2>Handelsregister</h2>
+    <p>
+      Amtsgericht Düren<br/>
+      Registernummer: HRB 10102<br/>
+      Stammkapital: 6.000 EUR
+    </p>
+
+    <h2>Kontakt</h2>
+    <p>
+      Telefon: +49 (0) [Telefonnummer einsetzen]<br/>
+      E-Mail: <a href="mailto:kontakt@importia.de">kontakt@importia.de</a><br/>
+      Internet: www.importia.de
+    </p>
+
+    <h2>Umsatzsteuer-Identifikationsnummer</h2>
+    <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br/>
+    DE [USt-IdNr. einsetzen, sobald vom Bundeszentralamt für Steuern erteilt]</p>
+
+    <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+    <p>
+      Jolanta Daugelaite<br/>
+      Importia UG (haftungsbeschränkt)<br/>
+      Weierstraße 10<br/>
+      52349 Düren<br/>
+      Deutschland
+    </p>
+
+    <h2>Berufsrechtliche Angaben</h2>
+    <p>Die Importia UG (haftungsbeschränkt) übt eine gewerbliche Tätigkeit in den Bereichen Import, Export, Transport, An- und Verkauf, Vertrieb und Lagerung von nicht genehmigungspflichtigen Waren, Betrieb einer Postannahmestelle/Packstation sowie Betrieb von Online-Verkaufsplattformen aus. Eine besondere Berufsregelung oder Aufsichtsbehörde im Sinne des § 5 Abs. 1 Nr. 5 DDG besteht für diese Tätigkeit nicht.</p>
+
+    <h2>EU-Streitschlichtung</h2>
+    <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:<br/>
+    <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a></p>
+    <p>Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
+
+    <h2>Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
+    <p>Die Importia UG (haftungsbeschränkt) ist nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+
+    <h2>Haftung für Inhalte</h2>
+    <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+    <p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+
+    <h2>Haftung für Links</h2>
+    <p>Unser Angebot enthält gegebenenfalls Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.</p>
+    <p>Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+
+    <h2>Urheberrecht</h2>
+    <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+    <p>Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
+
+    <h2>Bildnachweise</h2>
+    <p class="placeholder-block"><em>[Falls verwendet, hier auflisten, z.&nbsp;B.:<br/>
+    Eigene Aufnahmen / Eigenes Bildmaterial der Importia UG (haftungsbeschränkt)<br/>
+    Sowie ggf. lizenzierte Bilder von: Unsplash, Pexels etc.]</em></p>
+
+    <hr/>
+
+    <p class="stand"><em>Stand: April 2026</em></p>
+  </main>
+
+  <section class="legal-foot">
+    <div class="frame">
+      <div class="footer-bar">
+        <div class="left">
+          <span>© 2026 IMPORTIA. Alle Rechte vorbehalten.</span>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </div>
+        <div class="right">
+          <span>DE / 52349 &middot; v 1.0</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

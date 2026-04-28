@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /legal_docs/
+Disallow: /_legal_docs/
+
+Sitemap: https://importia.pages.dev/sitemap.xml
