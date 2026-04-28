@@ -24,7 +24,7 @@ Stammkapital: 6.000 EUR
 
 ## Kontakt
 
-Telefon: +49 (0) [Telefonnummer einsetzen]
+Telefon: +49 160 5391154
 E-Mail: info@importia.de
 Internet: www.importia.de
 

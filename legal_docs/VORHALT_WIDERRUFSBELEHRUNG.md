@@ -46,7 +46,7 @@ Um Ihr Widerrufsrecht auszuüben, müssen Sie uns
 Weierstraße 10
 52349 Düren
 Deutschland
-Telefon: +49 (0) [Telefonnummer einsetzen]
+Telefon: +49 160 5391154
 E-Mail: info@importia.de
 
 mittels einer eindeutigen Erklärung (z.B. ein mit der Post versandter Brief oder eine E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist.

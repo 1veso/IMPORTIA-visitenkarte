@@ -17,7 +17,7 @@ Vertreten durch die Geschäftsführerinnen:
 Jolanta Daugelaite
 Irene Geier
 
-Telefon: +49 (0) [Telefonnummer einsetzen]
+Telefon: +49 160 5391154
 E-Mail: info@importia.de
 
 ## 2. Allgemeine Hinweise
