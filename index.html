@@ -6,19 +6,20 @@
 <title>IMPORTIA · Deutschland</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Oswald:wght@300;400;500;600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0F141C;
-    --card:#1A202B;
+    --bg:#0A1730;
+    --card:#13213C;
     --text:#F2EEE4;
     --muted:#A39E8F;
     --muted-strong:#C4BFB1;
-    --accent-navy:#2A4A74;
+    --accent-navy:#1E3A5F;
     --accent-red:#8C2A28;
-    --gold:#D0A858;
+    --gold:#D8B270;
     --gold-dim:#A5864A;
-    --border:#242D3B;
+    --gold-bright:#E8C97F;
+    --border:#1B2940;
   }
 
   *{box-sizing:border-box}
@@ -114,15 +115,15 @@
     100% { background-position: 380px 380px; }
   }
 
-  /* large rotating globe behind logo — tilted 23.5° like real Earth, spins on Y-axis */
+  /* large rotating globe behind logo — tilted 16.8° like real Earth, spins on Y-axis */
   .fx-globe-wrap{
     position:absolute;
     inset:0;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:var(--gold-dim);
-    opacity:0.18;
+    color:var(--gold-dim);    /* gold lattice — meridians, parallels, continents */
+    opacity:0.45;             /* visible against navy bg, not dominant */
     will-change: transform;
   }
   .fx-globe-tilt{
@@ -325,46 +326,108 @@
 
   .logo-plate .logo-wrap{
     position:relative;
-    width:clamp(220px, 28vw, 340px);
-    max-width:52vw;
+    width:clamp(280px, 38vw, 480px);
+    max-width:70vw;
     display:block;
+    text-align:center;
     perspective: 900px;
     transform-style: preserve-3d;
   }
-  /* halo entfernt — Logo trägt sich selbst über drop-shadow + brightness/contrast */
-  .logo-plate img{
-    position:relative;
-    z-index:1;
-    width:100%;
-    height:auto;
-    display:block;
+
+  /* ornament flourish above wordmark — two hairlines + central emblem */
+  .logo-plate .logo-ornament{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin-bottom:10px;
+  }
+  .logo-plate .logo-ornament .dash{
+    flex:0 0 auto;
+    width:64px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold-dim) 30%, var(--gold-dim) 70%, transparent);
+    opacity:0.7;
+  }
+  .logo-plate .logo-ornament .emblem{
+    color:var(--gold);
+    font-size:13px;
+    line-height:1;
+    opacity:0.85;
+  }
+
+  /* main wordmark — Cinzel Roman serif with gold gradient fill */
+  .logo-plate .wordmark{
+    font-family:'Cinzel', 'Trajan Pro', serif;
+    font-weight:600;
+    font-size:clamp(46px, 7vw, 88px);
+    letter-spacing:0.06em;
+    line-height:1;
+    margin:0;
+    color:transparent;
+    background:linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 48%, var(--gold-dim) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    filter:
+      drop-shadow(0 0 22px rgba(216,178,112,0.20))
+      drop-shadow(0 4px 10px rgba(0,0,0,0.55));
     animation:
-      logoFloat 9s ease-in-out infinite,
       logoIn 1.4s cubic-bezier(.2,.7,.2,1) both;
     transform-origin:center;
     will-change:transform, opacity;
-    filter:
-      drop-shadow(0 0 32px rgba(255,220,150,0.40))
-      drop-shadow(0 0 8px rgba(255,255,255,0.18))
-      drop-shadow(0 2px 4px rgba(0,0,0,0.7))
-      drop-shadow(0 8px 14px rgba(0,0,0,0.55))
-      brightness(1.32)
-      contrast(1.20)
-      saturate(1.18);
   }
 
-  @keyframes logoIn{
-    0%   { opacity:0; transform:translateY(10px) scale(0.985); filter:blur(2px); }
-    100% { opacity:1; transform:translateY(0)    scale(1);     filter:blur(0); }
+  /* tagline below wordmark — small caps, gold, wide letter-spacing */
+  .logo-plate .logo-tagline{
+    font-family:'Inter', sans-serif;
+    font-weight:500;
+    font-size:clamp(9px, 1.05vw, 11px);
+    letter-spacing:0.34em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin:14px 0 0;
+    opacity:0.85;
   }
-  @keyframes logoFloat{
-    0%,100% { transform:translateY(0)    scale(1) rotateX(0deg)   rotateY(0deg); }
-    25%     { transform:translateY(-1px) scale(1.004) rotateX(0.5deg) rotateY(1deg); }
-    50%     { transform:translateY(-2px) scale(1.006) rotateX(0deg)   rotateY(0deg); }
-    75%     { transform:translateY(-1px) scale(1.004) rotateX(-0.5deg) rotateY(-1deg); }
+
+  /* DEUTSCHLAND banner — bordered ribbon with hairline accents */
+  .logo-plate .logo-banner{
+    display:inline-block;
+    margin-top:16px;
+    padding:5px 22px;
+    border:1px solid var(--gold-dim);
+    background:rgba(216,178,112,0.06);
+    font-family:'Inter', sans-serif;
+    font-weight:500;
+    font-size:10px;
+    letter-spacing:0.42em;
+    text-transform:uppercase;
+    color:var(--gold);
+    position:relative;
+  }
+  .logo-plate .logo-banner::before,
+  .logo-plate .logo-banner::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    width:24px;
+    height:1px;
+    background:var(--gold-dim);
+    opacity:0.6;
+  }
+  .logo-plate .logo-banner::before{ right:100%; margin-right:8px; }
+  .logo-plate .logo-banner::after{  left:100%;  margin-left:8px; }
+  .logo-plate .logo-banner span{ display:inline-block; }
+
+  @keyframes logoIn{
+    0%   { opacity:0; transform:translateY(10px) scale(0.985); }
+    100% { opacity:1; transform:translateY(0)    scale(1); }
   }
   @media (prefers-reduced-motion: reduce){
-    .logo-plate img{ animation:none !important; }
+    .logo-plate .wordmark,
+    .logo-plate .logo-ornament,
+    .logo-plate .logo-tagline,
+    .logo-plate .logo-banner{ animation:none !important; }
   }
 
   @media (max-width:720px){
@@ -724,26 +787,26 @@
             <clipPath id="globeMask">
               <circle cx="110" cy="110" r="92"/>
             </clipPath>
-            <!-- atmospheric outer glow ring (subtle blue corona outside sphere) -->
+            <!-- atmospheric outer glow ring — warm gold corona around sphere -->
             <radialGradient id="atmoOuter" cx="50%" cy="50%" r="50%">
-              <stop offset="82%" stop-color="rgba(140, 195, 230, 0)"/>
-              <stop offset="88%" stop-color="rgba(170, 215, 245, 0.22)"/>
-              <stop offset="92%" stop-color="rgba(180, 225, 250, 0.34)"/>
-              <stop offset="96%" stop-color="rgba(170, 215, 245, 0.18)"/>
-              <stop offset="100%" stop-color="rgba(140, 195, 230, 0)"/>
+              <stop offset="80%" stop-color="rgba(216, 178, 112, 0)"/>
+              <stop offset="86%" stop-color="rgba(232, 201, 127, 0.32)"/>
+              <stop offset="91%" stop-color="rgba(248, 220, 150, 0.46)"/>
+              <stop offset="95%" stop-color="rgba(216, 178, 112, 0.26)"/>
+              <stop offset="100%" stop-color="rgba(216, 178, 112, 0)"/>
             </radialGradient>
-            <!-- inner ocean tint + limb darkening -->
+            <!-- inner sphere tint — deep navy core fading to warm gold limb -->
             <radialGradient id="atmoInner" cx="50%" cy="50%" r="50%">
-              <stop offset="0%"  stop-color="rgba(30, 55, 90, 0.12)"/>
-              <stop offset="70%" stop-color="rgba(40, 75, 110, 0.14)"/>
-              <stop offset="92%" stop-color="rgba(70, 130, 180, 0.22)"/>
-              <stop offset="100%" stop-color="rgba(150, 200, 230, 0.40)"/>
+              <stop offset="0%"  stop-color="rgba(10, 23, 48, 0.45)"/>
+              <stop offset="60%" stop-color="rgba(20, 33, 60, 0.40)"/>
+              <stop offset="92%" stop-color="rgba(165, 134, 74, 0.20)"/>
+              <stop offset="100%" stop-color="rgba(216, 178, 112, 0.32)"/>
             </radialGradient>
             <!-- warm highlight (upper-left light source) for 3D sphere illusion -->
-            <radialGradient id="atmoHighlight" cx="32%" cy="32%" r="42%">
-              <stop offset="0%"   stop-color="rgba(255, 245, 220, 0.14)"/>
-              <stop offset="55%"  stop-color="rgba(255, 245, 220, 0.04)"/>
-              <stop offset="100%" stop-color="rgba(255, 245, 220, 0)"/>
+            <radialGradient id="atmoHighlight" cx="32%" cy="30%" r="40%">
+              <stop offset="0%"   stop-color="rgba(255, 235, 195, 0.16)"/>
+              <stop offset="50%"  stop-color="rgba(255, 235, 195, 0.04)"/>
+              <stop offset="100%" stop-color="rgba(255, 235, 195, 0)"/>
             </radialGradient>
             <!-- continent definitions (one source, used twice for seamless loop) -->
             <g id="continents">
@@ -925,7 +988,14 @@
       <div class="logo-plate">
         <span class="c2"></span><span class="c3"></span>
         <div class="logo-wrap">
-          <img src="assets/importia-logo-transparent.png" alt="IMPORTIA" />
+          <div class="logo-ornament" aria-hidden="true">
+            <span class="dash"></span>
+            <span class="emblem">✦</span>
+            <span class="dash"></span>
+          </div>
+          <h2 class="wordmark">IMPORTIA</h2>
+          <div class="logo-tagline">Import &middot; Export &middot; Handel &middot; Online &amp; Vor Ort</div>
+          <div class="logo-banner"><span>DEUTSCHLAND</span></div>
         </div>
       </div>
 
@@ -1110,9 +1180,9 @@
         transformOrigin: 'center'
       });
 
-      // Atmosphere shimmer — outer glow opacity gently breathes (very subtle, 18s loop)
+      // Atmosphere shimmer — outer glow opacity gently breathes (subtle, 18s loop)
       gsap.to('.fx-globe-wrap', {
-        opacity: 0.26,
+        opacity: 0.58,
         duration: 9,
         ease: 'sine.inOut',
         yoyo: true,
