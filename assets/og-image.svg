@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E8C97F"/>
+      <stop offset="50%" stop-color="#D8B270"/>
+      <stop offset="100%" stop-color="#A5864A"/>
+    </linearGradient>
+    <pattern id="dots" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.1" fill="#1B2940" opacity="0.55"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0A1730"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+
+  <line x1="80" y1="120" x2="1120" y2="120" stroke="#A5864A" stroke-width="1" stroke-dasharray="2 6" opacity="0.45"/>
+  <line x1="80" y1="510" x2="1120" y2="510" stroke="#A5864A" stroke-width="1" stroke-dasharray="2 6" opacity="0.45"/>
+
+  <text x="600" y="345"
+        font-family="'Cinzel','Trajan Pro','Times New Roman',serif"
+        font-weight="600"
+        font-size="148"
+        letter-spacing="14"
+        text-anchor="middle"
+        fill="url(#goldGrad)">IMPORTIA</text>
+
+  <text x="600" y="420"
+        font-family="'Oswald','Arial Narrow',sans-serif"
+        font-weight="400"
+        font-size="32"
+        letter-spacing="6"
+        text-anchor="middle"
+        fill="#C4BFB1">AUS DEUTSCHLAND IN ALLE WELT.</text>
+
+  <text x="600" y="575"
+        font-family="'JetBrains Mono','Courier New',monospace"
+        font-weight="400"
+        font-size="18"
+        letter-spacing="4"
+        text-anchor="middle"
+        fill="#A39E8F">N 50&#176; 48&#8242; &#183; E 06&#176; 29&#8242;  &#183;  D&#220;REN</text>
+</svg>
