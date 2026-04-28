@@ -133,16 +133,8 @@
     width: clamp(420px, 56vw, 760px);
     height: auto;
   }
-  /* Y-axis rotation faked: continents slide horizontally through circular mask.
-     Static rim + parallels + meridians stay put — only landmasses translate. */
-  .fx-globe .continent-strip{
-    animation: continentSpin 80s linear infinite;
-    will-change: transform;
-  }
-  @keyframes continentSpin{
-    from { transform: translateX(0); }
-    to   { transform: translateX(-200px); }
-  }
+  /* Y-axis rotation faked: continents slide W→E inside circular mask via SMIL animateTransform
+     (native viewBox units, see <animateTransform> in SVG). Static rim + parallels + meridians stay. */
 
   /* full-hero deco SVG (arcs, lanes, compass, postmarks) */
   .fx-deco{
@@ -264,9 +256,10 @@
     }
   }
   @media (prefers-reduced-motion: reduce){
-    .fx-grid, .fx-globe .continent-strip, .fx-plane, .fx-ship, .fx-truck, .fx-parcel{
+    .fx-grid, .fx-plane, .fx-ship, .fx-truck, .fx-parcel{
       animation: none !important;
     }
+    .fx-globe .continent-strip{ display: none; }   /* SMIL doesn't honour CSS animation:none */
     .fx-plane, .fx-ship, .fx-truck{ display:none; }
   }
 
@@ -732,15 +725,16 @@
               <circle cx="100" cy="100" r="92"/>
             </clipPath>
           </defs>
-          <!-- static sphere rim + parallels + perspective meridians -->
+          <!-- static sphere rim (solid) -->
           <circle cx="100" cy="100" r="92"/>
-          <ellipse cx="100" cy="100" rx="92" ry="22" stroke-width="0.7"/>
-          <ellipse cx="100" cy="100" rx="92" ry="55" stroke-width="0.6"/>
-          <ellipse cx="100" cy="100" rx="60" ry="92" stroke-width="0.6"/>
-          <ellipse cx="100" cy="100" rx="28" ry="92" stroke-width="0.6"/>
-          <line x1="8" y1="100" x2="192" y2="100"/>
-          <line x1="100" y1="8" x2="100" y2="192" stroke-width="0.6"/>
-          <!-- continents slide horizontally inside the spherical mask = Y-axis rotation illusion -->
+          <!-- parallels & meridians dotted (matches editorial linework) -->
+          <ellipse cx="100" cy="100" rx="92" ry="22" stroke-width="0.7" stroke-dasharray="1.6 2.6"/>
+          <ellipse cx="100" cy="100" rx="92" ry="55" stroke-width="0.6" stroke-dasharray="1.6 2.6"/>
+          <ellipse cx="100" cy="100" rx="60" ry="92" stroke-width="0.6" stroke-dasharray="1.6 2.6"/>
+          <ellipse cx="100" cy="100" rx="28" ry="92" stroke-width="0.6" stroke-dasharray="1.6 2.6"/>
+          <line x1="8" y1="100" x2="192" y2="100" stroke-dasharray="2.2 3"/>
+          <line x1="100" y1="8" x2="100" y2="192" stroke-width="0.6" stroke-dasharray="1.6 2.6"/>
+          <!-- continents slide horizontally inside the spherical mask = Y-axis rotation (W→E, Earth-realistic) -->
           <g clip-path="url(#globeMask)">
             <g class="continent-strip">
               <path d="M 60 70 Q 70 60 80 65 Q 88 75 80 85 Q 70 80 60 70 Z" fill="currentColor" stroke="none" opacity="0.55"/>
@@ -752,14 +746,18 @@
               <path d="M 310 50 Q 330 55 340 70 Q 330 90 315 80 Q 305 65 310 50 Z" fill="currentColor" stroke="none" opacity="0.55"/>
               <path d="M 330 110 Q 345 115 345 130 Q 330 140 320 130 Z" fill="currentColor" stroke="none" opacity="0.55"/>
               <path d="M 270 120 Q 290 125 295 140 Q 280 150 265 140 Z" fill="currentColor" stroke="none" opacity="0.55"/>
+              <!-- SMIL animation in native viewBox units — guaranteed seamless loop -->
+              <animateTransform attributeName="transform" type="translate" from="-200 0" to="0 0" dur="80s" repeatCount="indefinite"/>
             </g>
           </g>
         </svg>
         </div>
       </div>
 
-      <!-- decoration layer: dotted air route, shipping lane, compass -->
+      <!-- decoration layer: dotted air route arc, shipping lane, compass -->
       <svg class="fx-deco" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
+        <!-- decorative dotted air route arc -->
+        <path d="M -120 460 C 280 200, 920 200, 1320 460" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 8" opacity="0.55"/>
         <!-- shipping lane -->
         <path d="M -200 540 L 1400 540" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 6" opacity="0.4"/>
 
