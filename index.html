@@ -154,7 +154,7 @@
     height: 20px;
     color: var(--gold);
     opacity: 0;
-    offset-path: path('M -120 480 Q 600 60 1320 480');
+    offset-path: path('M -120 460 C 280 200, 920 200, 1320 460');
     offset-rotate: auto;
     animation: planeFly 30s linear infinite;
     will-change: offset-distance, opacity;
@@ -347,10 +347,12 @@
     transform-origin:center;
     will-change:transform, opacity;
     filter:
-      drop-shadow(0 0 22px rgba(255,220,150,0.20))
-      drop-shadow(0 12px 22px rgba(0,0,0,0.45))
-      brightness(1.10)
-      contrast(1.04);
+      drop-shadow(0 0 24px rgba(255,220,150,0.22))
+      drop-shadow(0 4px 8px rgba(0,0,0,0.55))
+      drop-shadow(0 14px 26px rgba(0,0,0,0.45))
+      brightness(1.20)
+      contrast(1.10)
+      saturate(1.12);
   }
 
   @keyframes logoIn{
@@ -734,13 +736,13 @@
 
       <!-- decoration layer: dotted air route, shipping lane, compass, postmarks -->
       <svg class="fx-deco" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
-        <!-- air route arc -->
-        <path d="M -120 480 Q 600 60 1320 480" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 8" opacity="0.55"/>
+        <!-- air route arc — matches .fx-plane offset-path -->
+        <path d="M -120 460 C 280 200, 920 200, 1320 460" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 8" opacity="0.6"/>
         <!-- shipping lane -->
         <path d="M -200 540 L 1400 540" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 6" opacity="0.4"/>
 
         <!-- compass rose, bottom-left -->
-        <g transform="translate(110,490)" stroke="currentColor" fill="none" stroke-width="1.2" opacity="0.55">
+        <g transform="translate(180,470)" stroke="currentColor" fill="none" stroke-width="1.2" opacity="0.55">
           <circle r="34"/>
           <circle r="24" stroke-dasharray="1 3" opacity="0.6"/>
           <path d="M 0 -36 L -5 0 L 0 -8 L 5 0 Z" fill="currentColor"/>
@@ -754,7 +756,7 @@
         </g>
 
         <!-- DÜREN postmark, top-right -->
-        <g transform="translate(1080,130)" stroke="currentColor" fill="none" stroke-width="0.9" opacity="0.55">
+        <g transform="translate(1010,150)" stroke="currentColor" fill="none" stroke-width="0.9" opacity="0.6">
           <circle r="48"/>
           <circle r="42" stroke-dasharray="1 2.5"/>
           <text x="0" y="-22" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" letter-spacing="3" fill="currentColor">★ DÜREN ★</text>
@@ -765,7 +767,7 @@
         </g>
 
         <!-- EXPRESS / PAR AVION stamp at angle, bottom-right (sole accent-red touch) -->
-        <g transform="translate(1050,500) rotate(-9)" opacity="0.7">
+        <g transform="translate(980,470) rotate(-9)" opacity="0.75">
           <rect x="-66" y="-20" width="132" height="40" rx="2" stroke="var(--accent-red)" stroke-width="1.3" stroke-dasharray="3 3" fill="none"/>
           <text x="0" y="-2" text-anchor="middle" font-family="'Oswald',sans-serif" font-weight="600" font-size="15" letter-spacing="5" fill="var(--accent-red)">EXPRESS</text>
           <text x="0" y="11" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6" letter-spacing="3" fill="var(--accent-red)" opacity="0.85">PAR AVION · MMXXVI</text>
@@ -871,8 +873,8 @@
       </div>
 
       <h1>
-        Deutsche Qualität.<br/>
-        <span class="em">Globale Märkte.</span>
+        Aus Deutschland in alle Welt.<br/>
+        <span class="em">Aus aller Welt nach Deutschland.</span>
       </h1>
 
       <p class="tagline">

@@ -18,7 +18,7 @@ Jolanta Daugelaite
 Irene Geier
 
 Telefon: +49 (0) [Telefonnummer einsetzen]
-E-Mail: kontakt@importia.de
+E-Mail: info@importia.de
 
 ## 2. Allgemeine Hinweise
 
