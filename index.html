@@ -6,7 +6,7 @@
 <title>IMPORTIA · Deutschland</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <script>
-  // FOUC prevention — apply persisted theme before paint
+  // FOUC prevention - apply persisted theme before paint
   (function(){ try{
     var t = localStorage.getItem('importia-theme');
     if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
@@ -30,7 +30,7 @@
     --border:#1B2940;
   }
 
-  /* dark theme override — original deep-grey palette, kept for toggle */
+  /* dark theme override - original deep-grey palette, kept for toggle */
   :root[data-theme="dark"]{
     --bg:#0F141C;
     --card:#1A202B;
@@ -170,15 +170,15 @@
     100% { background-position: 380px 380px; }
   }
 
-  /* large rotating globe behind logo — tilted 16.8° like real Earth, spins on Y-axis */
+  /* large rotating globe behind logo - tilted 16.8° like real Earth, spins on Y-axis */
   .fx-globe-wrap{
     position:absolute;
     inset:0;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:var(--gold-dim);    /* gold lattice — meridians, parallels, continents */
-    opacity:0.30;             /* subtler — atmospheric, not dominant */
+    color:var(--gold-dim);    /* gold lattice - meridians, parallels, continents */
+    opacity:0.30;             /* subtler - atmospheric, not dominant */
     will-change: transform;
   }
   .fx-globe-tilt{
@@ -203,7 +203,7 @@
   }
   .fx-deco svg{ display:block; width:100%; height:100%; }
 
-  /* airplane orbiting the globe — circular orbit clockwise around hero centre */
+  /* airplane orbiting the globe - circular orbit clockwise around hero centre */
   .fx-plane{
     position:absolute;
     top: 50%;
@@ -220,7 +220,7 @@
     will-change: transform;
   }
   .fx-plane svg{ display:block; width:100%; height:100%; position:relative; z-index:1; }
-  /* chemtrail behind plane — fades back along flight direction, rotates with the plane */
+  /* chemtrail behind plane - fades back along flight direction, rotates with the plane */
   .fx-plane::before{
     content:"";
     position:absolute;
@@ -389,7 +389,7 @@
     transform-style: preserve-3d;
   }
 
-  /* ornament flourish above wordmark — two hairlines + central emblem */
+  /* ornament flourish above wordmark - two hairlines + central emblem */
   .logo-plate .logo-ornament{
     display:flex;
     align-items:center;
@@ -411,7 +411,7 @@
     opacity:0.85;
   }
 
-  /* main wordmark — Cinzel Roman serif with gold gradient fill */
+  /* main wordmark - Cinzel Roman serif with gold gradient fill */
   .logo-plate .wordmark{
     font-family:'Cinzel', 'Trajan Pro', serif;
     font-weight:600;
@@ -420,13 +420,13 @@
     line-height:1.05;          /* tiny room above/below so glyph apex isn't clipped by gradient box */
     margin:0;
     display:inline-block;      /* size to text, not parent; gradient box now matches glyph extent */
-    padding:0 0.10em;          /* serif overhang reserve — A's right serif lives in here */
+    padding:0 0.10em;          /* serif overhang reserve - A's right serif lives in here */
     white-space:nowrap;        /* one line, no mid-word wrap */
     color:transparent;
     background:linear-gradient(180deg, var(--gold) 0%, var(--gold) 50%, var(--gold-dim) 100%);
     -webkit-background-clip:text;
     background-clip:text;
-    /* subtler shadows — depth only, no gold beaming */
+    /* subtler shadows - depth only, no gold beaming */
     filter:
       drop-shadow(0 2px 4px rgba(0,0,0,0.50))
       drop-shadow(0 6px 14px rgba(0,0,0,0.40));
@@ -436,7 +436,7 @@
     will-change:transform, opacity;
   }
 
-  /* tagline below wordmark — small caps, gold, wide letter-spacing */
+  /* tagline below wordmark - small caps, gold, wide letter-spacing */
   .logo-plate .logo-tagline{
     font-family:'Inter', sans-serif;
     font-weight:500;
@@ -448,7 +448,7 @@
     opacity:0.85;
   }
 
-  /* DEUTSCHLAND banner — bordered ribbon with hairline accents */
+  /* DEUTSCHLAND banner - bordered ribbon with hairline accents */
   .logo-plate .logo-banner{
     display:inline-block;
     margin-top:16px;
@@ -842,7 +842,7 @@
       <!-- deep-bg drifting dot grid -->
       <div class="fx-grid"></div>
 
-      <!-- rotating world globe — tilted 23.5°, premium atmospheric glow + recognizable continents -->
+      <!-- rotating world globe - tilted 23.5°, premium atmospheric glow + recognizable continents -->
       <div class="fx-globe-wrap">
         <div class="fx-globe-tilt">
         <svg class="fx-globe" viewBox="0 0 220 220" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round">
@@ -850,7 +850,7 @@
             <clipPath id="globeMask">
               <circle cx="110" cy="110" r="92"/>
             </clipPath>
-            <!-- atmospheric outer glow ring — warm gold corona around sphere -->
+            <!-- atmospheric outer glow ring - warm gold corona around sphere -->
             <radialGradient id="atmoOuter" cx="50%" cy="50%" r="50%">
               <stop offset="80%" stop-color="rgba(216, 178, 112, 0)"/>
               <stop offset="86%" stop-color="rgba(232, 201, 127, 0.32)"/>
@@ -858,7 +858,7 @@
               <stop offset="95%" stop-color="rgba(216, 178, 112, 0.26)"/>
               <stop offset="100%" stop-color="rgba(216, 178, 112, 0)"/>
             </radialGradient>
-            <!-- inner sphere tint — deep navy core fading to warm gold limb -->
+            <!-- inner sphere tint - deep navy core fading to warm gold limb -->
             <radialGradient id="atmoInner" cx="50%" cy="50%" r="50%">
               <stop offset="0%"  stop-color="rgba(10, 23, 48, 0.45)"/>
               <stop offset="60%" stop-color="rgba(20, 33, 60, 0.40)"/>
@@ -903,7 +903,7 @@
 
           <!-- 1. atmospheric outer corona (extends past sphere) -->
           <circle cx="110" cy="110" r="108" fill="url(#atmoOuter)" stroke="none"/>
-          <!-- 2. sphere body — ocean tint with limb darkening -->
+          <!-- 2. sphere body - ocean tint with limb darkening -->
           <circle cx="110" cy="110" r="92" fill="url(#atmoInner)" stroke="none"/>
           <!-- 3. sphere outline (solid stroke for crisp silhouette) -->
           <circle cx="110" cy="110" r="92"/>
@@ -922,7 +922,7 @@
               <animateTransform attributeName="transform" type="translate" from="-200 0" to="0 0" dur="80s" repeatCount="indefinite"/>
             </g>
           </g>
-          <!-- 6. warm highlight overlay (upper-left light source) — premium 3D illusion -->
+          <!-- 6. warm highlight overlay (upper-left light source) - premium 3D illusion -->
           <circle cx="110" cy="110" r="92" fill="url(#atmoHighlight)" stroke="none"/>
         </svg>
         </div>
@@ -1112,8 +1112,8 @@
           </svg>
           <h3>Import</h3>
           <p class="kicker">Bezug &middot; Beschaffung &middot; Zoll</p>
-          <p>IMPORTIA bezieht Warensortimente aus Asien, Nordamerika und ausgewählten Nachbarmärkten Europas. Die Auswahl folgt langfristigen Partnerschaften, nicht kurzfristigem Angebot.</p>
-          <p>Kompetenzen umfassen Zollabwicklung, Qualitätssicherung und die Verdichtung kleinerer Lieferanten zu einem verlässlichen Warenstrom.</p>
+          <p>Wir kaufen in Asien, Nordamerika und ausgewählten europäischen Märkten ein. Unsere Lieferanten kennen wir lange. Was wir aufnehmen, haben wir vorher selbst geprüft.</p>
+          <p>Wir kümmern uns um Zoll, Qualitätssicherung und das Bündeln kleinerer Lieferanten, sodass am Ende ein verlässlicher Warenstrom entsteht.</p>
           <div class="keys">
             INCOTERMS <span>CIF &middot; DAP &middot; FOB</span><br/>
             REGIONEN <span>CN &middot; VN &middot; US &middot; IT</span>
@@ -1132,8 +1132,8 @@
           </svg>
           <h3>Export</h3>
           <p class="kicker">Absatz &middot; Distribution &middot; Dokumentation</p>
-          <p>Deutsche und europäische Erzeugnisse finden über IMPORTIA den Weg in Märkte, in denen Herkunft und Verarbeitung zählen. Der Fokus liegt auf Konsumgütern und industriellem Bedarf.</p>
-          <p>Die Begleitung reicht von Ursprungsnachweisen und Exportdokumentation bis zur Koordination mit Logistikpartnern an den Zielorten.</p>
+          <p>Wir bringen deutsche und europäische Ware dorthin, wo Herkunft und Verarbeitung als Argument zählen. Schwerpunkt sind Konsumgüter und industrieller Bedarf.</p>
+          <p>Wir kümmern uns um Ursprungsnachweise, Exportdokumentation und stimmen uns mit den Logistikpartnern am Zielort ab.</p>
           <div class="keys">
             ZIELMÄRKTE <span>EU &middot; UK &middot; JP &middot; GCC</span><br/>
             DOKUMENTE <span>EUR.1 &middot; A.TR &middot; CoO</span>
@@ -1152,8 +1152,8 @@
           </svg>
           <h3>Handel</h3>
           <p class="kicker">Groß &middot; Einzeln &middot; Kuratiert</p>
-          <p>IMPORTIA arrangiert Warenströme zwischen Europa, Asien und Nordamerika für ausgewählte Handelspartner. Schwerpunkte liegen auf Konsumgütern, industriellem Bedarf und kuratierten Nischensortimenten.</p>
-          <p>Der Vertrieb erfolgt online über etablierte Marktplätze und vor Ort in direktem Kontakt mit Einkäufern und Fachhändlern.</p>
+          <p>Wir bewegen Ware zwischen Europa, Asien und Nordamerika und arbeiten dabei mit einem festen Kreis von Handelspartnern. Schwerpunkt sind Konsumgüter, industrieller Bedarf und kuratierte Nischensortimente.</p>
+          <p>Verkauft wird online über die großen Marktplätze und vor Ort beim Einkäufer oder Fachhändler.</p>
           <div class="keys">
             KANÄLE <span>B2B &middot; MARKTPLATZ &middot; DIREKT</span><br/>
             SEGMENTE <span>KONSUM &middot; INDUSTRIE</span>
@@ -1232,8 +1232,8 @@
       gsap.to('.fx-deco',       { yPercent: 42, ease: 'none', scrollTrigger: trig });
       gsap.to('.fx-parcel-wrap',{ yPercent: 60, ease: 'none', scrollTrigger: trig });
 
-      // Subtle "globe breathing" — slow scale pulse 1.0 → 1.035 → 1.0, 22s sine loop.
-      // Composes with scroll yPercent (different transform component) — adds organic life without overriding parallax.
+      // Subtle "globe breathing" - slow scale pulse 1.0 → 1.035 → 1.0, 22s sine loop.
+      // Composes with scroll yPercent (different transform component) - adds organic life without overriding parallax.
       gsap.to('.fx-globe-wrap', {
         scale: 1.035,
         duration: 11,
@@ -1243,7 +1243,7 @@
         transformOrigin: 'center'
       });
 
-      // Atmosphere shimmer — outer glow opacity gently breathes (subtle, 18s loop)
+      // Atmosphere shimmer - outer glow opacity gently breathes (subtle, 18s loop)
       gsap.to('.fx-globe-wrap', {
         opacity: 0.40,
         duration: 9,
